@@ -1,0 +1,97 @@
+.modal-wrapper.dimmed {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4); 
+  z-index: 999; 
+}
+
+.modal-wrapper {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  background: #ffffff !important;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  padding: 24px;
+  animation: fadeIn 0.3s ease-in-out;
+  font-family: "Pretendard", sans-serif;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+}
+
+.modal-message {
+  font-size: 1rem;
+  color: #4f4f4f;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.btn-primary {
+  background-color: #007aff; 
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  max-width: 150px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #005fcc;
+}
+
+.btn-secondary {
+  background-color: #f7f8fa;
+  color: #007aff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  max-width: 150px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #ebedf0;
+}
+
+/* 부드러운 등장 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
