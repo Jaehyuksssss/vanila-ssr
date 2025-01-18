@@ -1,11 +1,14 @@
 import { showModal } from "./components/modal";
+import { showToast } from "./components/toast";
 import { Handlers } from "./triggers";
 
 export default class CardsHandler implements Handlers {
   private modalOpenBtn : HTMLButtonElement
-
+  private toastOpenBtn : HTMLButtonElement
   constructor() {
     this.modalOpenBtn= document.getElementById('open-modal-btn') as HTMLButtonElement
+    this.toastOpenBtn=document.getElementById('open-toast-btn') as HTMLButtonElement
+
     this.init();
   }
 
@@ -16,6 +19,7 @@ export default class CardsHandler implements Handlers {
 
   private setEventListener() {
     this.openModalHandler()
+    this.openToastHandler()
   }
  
   private openModalHandler (){
@@ -27,9 +31,13 @@ export default class CardsHandler implements Handlers {
         onClose: () =>{console.log('callback 형태로 넣으면 실행됨')}
     });
     })
-
-
   }
+  private openToastHandler(){
+    this.toastOpenBtn.addEventListener('click',()=>{
+      showToast({ message: '저장 성공!', type: 'success' ,duration:2000});
+    })
+  }
+  
 
 }
 new CardsHandler();
