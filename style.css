@@ -204,9 +204,69 @@
   line-height: 1.6;
   display: none;
 }
-.accordion-content input{
+.accordion-content .accordion-content-input{
   width: 100%;
 }
+.btn-wrapper{
+  display: flex;
+  justify-content: center
+}
+.edit-btn {
+  background-color: #007aff;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  max-width: 150px;
+  transition: background-color 0.3s ease;
+}
+
+.edit-btn:hover {
+  background-color: #005fcc; 
+  box-shadow: 0 4px 8px rgba(0, 92, 204, 0.4); 
+  transform: scale(1.03);
+}
+
+.edit-btn:active {
+  background-color: #004bb7; 
+  transform: scale(1);
+}
+.delete-btn {
+  background-color: #f0f0f0; 
+  color: #4f4f4f; 
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #d9d9d9;
+  cursor: pointer;
+  width: 100%;
+  max-width: 150px;
+  transition: all 0.3s ease; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.delete-btn:hover {
+  background-color: #e6e6e6; 
+  color: #333333; 
+  border-color: #cccccc; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  transform: scale(1.03); 
+}
+
+.delete-btn:active {
+  background-color: #dcdcdc;
+  color: #000000; 
+  border-color: #bbbbbb; 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); 
+  transform: scale(0.97); 
+}
+
+
 .accordion-content.open {
   display: block;
   animation: slideDown 0.3s ease forwards;
@@ -227,5 +287,6 @@
 
 .accordion-item.open .accordion-toggle {
   transform: rotate(45deg);
-  color: #dc3545;
+  color: #007aff;
 }
+

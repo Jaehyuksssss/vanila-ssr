@@ -64,14 +64,18 @@ export const showModal = (props: ModalProps): void => {
         }
     };
 
-    const originalOnClose = props.onClose;
-    
-    props.onClose = () => {
+    const handleClose = () => {
         closeModal();
-        originalOnClose?.();
+        props.onClose?.();
     };
 
     modal.querySelector('#modal-action-btn')?.addEventListener('click', () => {
-        props.onClose();
+        props.onAction?.(); 
+        handleClose();
+    });
+
+    modal.querySelector('#modal-secondary-btn')?.addEventListener('click', () => {
+        props.onSecondaryAction?.(); 
+        handleClose();
     });
 };
