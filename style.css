@@ -210,7 +210,8 @@
 .btn-wrapper{
   display: flex;
   margin-top: 12px;
-  justify-content: center
+  justify-content: center;
+  gap: 12px;
 }
 .save-btn {
   background-color: #007aff;
