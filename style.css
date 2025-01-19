@@ -212,7 +212,7 @@
   margin-top: 12px;
   justify-content: center
 }
-.edit-btn {
+.save-btn {
   background-color: #007aff;
   color: white;
   font-size: 1rem;
@@ -226,13 +226,13 @@
   transition: background-color 0.3s ease;
 }
 
-.edit-btn:hover {
+.save-btn:hover {
   background-color: #005fcc; 
   box-shadow: 0 4px 8px rgba(0, 92, 204, 0.4); 
   transform: scale(1.03);
 }
 
-.edit-btn:active {
+.sace-btn:active {
   background-color: #004bb7; 
   transform: scale(1);
 }

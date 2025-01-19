@@ -21,6 +21,7 @@ export const createAccordion = ({ title, content }: AccordionProps): HTMLElement
       >${content}</textarea>
       <p class="editable-content">${content}</p>
       <div class="btn-wrapper">
+      <button class="save-btn" style="display: none;">저장</button>
         <button class="delete-btn">삭제</button>
       </div>
     </div>
@@ -31,6 +32,7 @@ export const createAccordion = ({ title, content }: AccordionProps): HTMLElement
   const contentElement = accordionItem.querySelector('.editable-content') as HTMLElement;
   const contentInput = accordionItem.querySelector('.accordion-content-input') as HTMLTextAreaElement;
   const deleteButton = accordionItem.querySelector('.delete-btn') as HTMLButtonElement;
+  const saveButton = accordionItem.querySelector('.save-btn') as HTMLButtonElement;
 
   toggleButton?.parentElement?.addEventListener('click', () => {
     if (contentDiv.style.display === 'none') {
@@ -45,6 +47,7 @@ export const createAccordion = ({ title, content }: AccordionProps): HTMLElement
   contentElement.addEventListener('click', () => {
     contentElement.style.display = 'none'; 
     contentInput.style.display = 'block'; 
+    saveButton.style.display = 'block';
     contentInput.focus(); 
 
     const saveContent = () => {
@@ -66,7 +69,12 @@ export const createAccordion = ({ title, content }: AccordionProps): HTMLElement
       { once: true }
     );
   });
-
+  saveButton.addEventListener('click', () => {
+    contentElement.textContent = contentInput.value;
+    contentInput.style.display = 'none';
+    contentElement.style.display = 'block'; 
+    saveButton.style.display = 'none'; 
+  });
   deleteButton.addEventListener('click', () => {
     showModal({
       title: '삭제 확인',
