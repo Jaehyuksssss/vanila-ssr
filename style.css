@@ -209,6 +209,7 @@
 }
 .btn-wrapper{
   display: flex;
+  margin-top: 12px;
   justify-content: center
 }
 .edit-btn {
