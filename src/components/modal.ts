@@ -65,6 +65,7 @@ export const showModal = (props: ModalProps): void => {
     };
 
     const originalOnClose = props.onClose;
+    
     props.onClose = () => {
         closeModal();
         originalOnClose?.();
