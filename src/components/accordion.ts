@@ -94,3 +94,4 @@ export const createAccordion = ({ title, content, onClose }: AccordionProps): HT
 
   return accordionItem;
 };
+

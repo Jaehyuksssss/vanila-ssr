@@ -1,25 +1,27 @@
+
+import { createAccordion } from "./components/accordion";
+import { showBottomSheet } from "./components/bottomsheet";
 import { showModal } from "./components/modal";
 import { showToast } from "./components/toast";
-import { createAccordion } from "./components/accordion";
 import { Handlers } from "./triggers";
 
-export default class CardsHandler implements Handlers {
+export default class viewHandler implements Handlers {
   private modalOpenBtn : HTMLButtonElement
   private toastOpenBtn : HTMLButtonElement
   private accordionOpenBtn: HTMLButtonElement;
   private accordionWrapper: HTMLElement;
+  private bottomsheetOpenBtn: HTMLButtonElement;
   
   constructor() {
     this.modalOpenBtn= document.getElementById('open-modal-btn') as HTMLButtonElement
     this.toastOpenBtn=document.getElementById('open-toast-btn') as HTMLButtonElement
     this.accordionOpenBtn = document.getElementById("open-accordion-btn") as HTMLButtonElement;
     this.accordionWrapper = document.getElementById("accordion-wrapper") as HTMLElement;
-
+    this.bottomsheetOpenBtn=document.getElementById('open-bottom-sheet-btn') as HTMLButtonElement
     this.init();
   }
 
   init() {
-    console.log("create cradHandler init");
     this.setEventListener();
   }
 
@@ -27,6 +29,7 @@ export default class CardsHandler implements Handlers {
     this.openModalHandler()
     this.openToastHandler()
     this.openAccordionHandler();
+    this.openBottomSheetHandler();
   }
  
   private openModalHandler (){
@@ -39,12 +42,17 @@ export default class CardsHandler implements Handlers {
     });
     })
   }
+
   private openToastHandler(){
     this.toastOpenBtn.addEventListener('click',()=>{
-      showToast({ message: '저장 성공!', type: 'success' ,duration:2000});
+      showToast({ message: '저장 성공', type: 'success' ,duration:2000});
     })
   }
+
   private openAccordionHandler() {
+    this.accordionWrapper.addEventListener('dragover', (event) => {
+      event.preventDefault();
+    });
     this.accordionOpenBtn.addEventListener("click", () => {
       const newAccordion = createAccordion({
         title: "새로운 아코디언",
@@ -61,5 +69,15 @@ export default class CardsHandler implements Handlers {
     });
   }
 
+  private openBottomSheetHandler() {
+    this.bottomsheetOpenBtn.addEventListener('click', () => {
+      showBottomSheet({
+        title: '바텀시트 타이틀',
+        content: '이것은 바텀시트 내용입니다.',
+        buttonText: '닫기',
+        onClose: () => console.log('바텀시트 닫힘'),
+      });
+    });
+  }
 }
-new CardsHandler();
+new viewHandler();
