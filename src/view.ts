@@ -49,6 +49,13 @@ export default class CardsHandler implements Handlers {
       const newAccordion = createAccordion({
         title: "새로운 아코디언",
         content: "이것은 새로 추가된 아코디언입니다.",
+        onAction: () => {
+          console.log("삭제 확인 버튼 클릭");
+        },
+        onClose: () => {
+          console.log("모달 닫기 버튼 클릭");
+          document.querySelector('.modal-wrapper')?.remove();
+        },
       });
       this.accordionWrapper.appendChild(newAccordion);
     });

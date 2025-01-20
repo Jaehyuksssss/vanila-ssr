@@ -3,9 +3,11 @@ import { showModal } from "./modal";
 interface AccordionProps {
   title: string;
   content: string;
+  onAction: () => void;
+  onClose: () => void;
 }
 
-export const createAccordion = ({ title, content }: AccordionProps): HTMLElement => {
+export const createAccordion = ({ title, content, onClose }: AccordionProps): HTMLElement => {
   const accordionItem = document.createElement('div');
   accordionItem.className = 'accordion-item';
 
@@ -21,7 +23,7 @@ export const createAccordion = ({ title, content }: AccordionProps): HTMLElement
       >${content}</textarea>
       <p class="editable-content">${content}</p>
       <div class="btn-wrapper">
-      <button class="save-btn" style="display: none;">저장</button>
+        <button class="save-btn" style="display: none;">저장</button>
         <button class="delete-btn">삭제</button>
       </div>
     </div>
@@ -69,25 +71,23 @@ export const createAccordion = ({ title, content }: AccordionProps): HTMLElement
       { once: true }
     );
   });
+
   saveButton.addEventListener('click', () => {
     contentElement.textContent = contentInput.value;
     contentInput.style.display = 'none';
     contentElement.style.display = 'block'; 
     saveButton.style.display = 'none'; 
   });
+
   deleteButton.addEventListener('click', () => {
     showModal({
       title: '삭제 확인',
       message: '정말로 이 항목을 삭제하시겠습니까?',
-      buttonText: '삭제',
+      buttonText: '삭제', 
       onAction: () => {
         accordionItem.remove();
-        console.log('아코디언 삭제됨');
       },
-      onClose: () => {
-        console.log('모달 닫힘');
-        document.querySelector('.modal-wrapper')?.remove();
-      },
+      onClose,
       secondaryButtonText: '취소',
     });
   });
