@@ -106,7 +106,7 @@ interface CardProps {
 export const cardDataArray: CardProps[] = [
   {
     title: 'Card 1',
-    imgUrl: '../public/cute.png',
+    imgUrl: 'dist/cute.png',
     description: '이것은 카드 내용1입니다.',
   },
   {
