@@ -1,7 +1,7 @@
 interface CardProps {
     title: string;
     description: string;
-    imageUrl: string;
+    imgUrl: string;
     buttonText: string;
     onButtonClick: () => void;
 }
@@ -9,7 +9,7 @@ interface CardProps {
 export const createCard = ({
     title,
     description,
-    imageUrl,
+    imgUrl,
     buttonText,
     onButtonClick,
 }: CardProps): HTMLElement => {
@@ -17,7 +17,7 @@ export const createCard = ({
     card.className = 'card';
 
     card.innerHTML = `
-        <div class="card-image" style="background-image: url('${imageUrl}');"></div>
+        <div class="card-image" style="background-image: url('${imgUrl}');"></div>
         <div class="card-content">
             <h3 class="card-title">${title}</h3>
             <p class="card-description">${description}</p>
