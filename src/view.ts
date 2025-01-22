@@ -1,6 +1,7 @@
 
 import { createAccordion } from "./components/accordion";
 import { showBottomSheet } from "./components/bottomsheet";
+import { showCard, showCards } from "./components/card";
 import { showModal } from "./components/modal";
 import { showToast } from "./components/toast";
 import { Handlers } from "./triggers";
@@ -11,6 +12,7 @@ export default class viewHandler implements Handlers {
   private accordionOpenBtn: HTMLButtonElement;
   private accordionWrapper: HTMLElement;
   private bottomsheetOpenBtn: HTMLButtonElement;
+  private cardOpenBtn: HTMLButtonElement;
   
   constructor() {
     this.modalOpenBtn= document.getElementById('open-modal-btn') as HTMLButtonElement
@@ -18,6 +20,7 @@ export default class viewHandler implements Handlers {
     this.accordionOpenBtn = document.getElementById("open-accordion-btn") as HTMLButtonElement;
     this.accordionWrapper = document.getElementById("accordion-wrapper") as HTMLElement;
     this.bottomsheetOpenBtn=document.getElementById('open-bottom-sheet-btn') as HTMLButtonElement
+    this.cardOpenBtn=document.getElementById('open-card-btn') as HTMLButtonElement
     this.init();
   }
 
@@ -30,6 +33,7 @@ export default class viewHandler implements Handlers {
     this.openToastHandler()
     this.openAccordionHandler();
     this.openBottomSheetHandler();
+    this.openCardHandler()
   }
  
   private openModalHandler (){
@@ -79,5 +83,40 @@ export default class viewHandler implements Handlers {
       });
     });
   }
+  private openCardHandler() {
+    this.cardOpenBtn.addEventListener('click', () => {
+      showCards(cardDataArray.map(card => ({
+        ...card,
+        imageUrl: card.imgUrl,
+        buttonText: '자세히 보기',
+        onButtonClick: () => console.log('카드 버튼 클릭')
+      })), 'main-wrapper');
+    });
+  }
 }
 new viewHandler();
+
+
+interface CardProps {
+  title: string;
+  imgUrl: string; 
+  description: string;
+}
+
+export const cardDataArray: CardProps[] = [
+  {
+    title: 'Card 1',
+    imgUrl: '../public/cute.png',
+    description: '이것은 카드 내용1입니다.',
+  },
+  {
+    title: 'Card 2',
+    imgUrl: '../public/cute.png',
+    description: '이것은 카드 내용2입니다.',
+  },
+  {
+    title: 'Card 3',
+    imgUrl: '../public/cute.png',
+    description: '이것은 카드 내용3입니다.',
+  },
+]
