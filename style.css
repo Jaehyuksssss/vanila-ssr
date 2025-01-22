@@ -366,7 +366,9 @@
 
 .btn-primary:hover {
   background: #0056b3;
-}#main-wrapper {
+}
+
+#main-wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
@@ -389,6 +391,29 @@
   transform: translateY(-4px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
+.card-header {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+}
+
+.card-close-button {
+  background: #ff5b5b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+
 
 .card-image {
   width: 100%;

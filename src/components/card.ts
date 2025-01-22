@@ -30,6 +30,27 @@ export const createCard = ({
     return card;
 };
 
+export const addClickMeEvent = (
+    containerId: string,
+    onClick: (title: string) => void
+  ): void => {
+    const container = document.getElementById(containerId);
+  
+    if (!container) {
+      console.error("Container not found");
+      return;
+    }
+  
+    const buttons = container.querySelectorAll(".card-button");
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const card = button.closest(".card");
+        const title = card?.querySelector(".card-title")?.textContent || "Unknown";
+        onClick(title);
+      });
+    });
+  };
+
 export const showCard = (props: CardProps, containerId: string): void => {
     const card = createCard(props);
     const container = document.getElementById(containerId);
@@ -43,20 +64,25 @@ export const showCard = (props: CardProps, containerId: string): void => {
 
 export const showCards = (cards: CardProps[], containerId: string): void => {
     const container = document.getElementById(containerId);
-
+  
     if (!container) {
-        console.error('Container not found');
-        return;
+      console.error("Container not found");
+      return;
     }
-
-    container.innerHTML = '';
-
+  
+    container.innerHTML = "";
+  
     cards.forEach((cardData) => {
-        const card = createCard({
-            ...cardData,
-            buttonText: 'Click Me', 
-            onButtonClick: () => console.log(`${cardData.title} button clicked`), 
-        });
-        container.appendChild(card);
+      const card = createCard({
+        ...cardData,
+        buttonText: "Click Me",
+        onButtonClick: () => {}, 
+      });
+      container.appendChild(card);
     });
-};
+  
+    addClickMeEvent(containerId, (title) =>
+      console.log(`"${title}" 카드의 버튼이 클릭되었습니다.`)
+    );
+  };
+  

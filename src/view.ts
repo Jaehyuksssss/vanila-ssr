@@ -1,7 +1,7 @@
 
 import { createAccordion } from "./components/accordion";
 import { showBottomSheet } from "./components/bottomsheet";
-import { showCards } from "./components/card";
+import { addClickMeEvent, showCards } from "./components/card";
 import { showModal } from "./components/modal";
 import { showToast } from "./components/toast";
 import { Handlers } from "./triggers";
@@ -83,16 +83,25 @@ export default class viewHandler implements Handlers {
       });
     });
   }
-  private openCardHandler() {
-    this.cardOpenBtn.addEventListener('click', () => {
-      showCards(cardDataArray.map(card => ({
+
+ private openCardHandler() {
+  this.cardOpenBtn.addEventListener("click", () => {
+    showCards(
+      cardDataArray.map((card) => ({
         ...card,
-        imageUrl: card.imgUrl,
-        buttonText: '자세히 보기',
-        onButtonClick: () => console.log('카드 버튼 클릭')
-      })), 'main-wrapper');
-    });
-  }
+        imgUrl: card.imgUrl,
+        buttonText: "자세히 보기",
+        onButtonClick: () => {}, 
+      })),
+      "main-wrapper"
+    );
+
+    addClickMeEvent("main-wrapper", (title) =>
+      console.log(`"${title}" 버튼 클릭됨!`)
+    );
+  });
+}
+
 }
 new viewHandler();
 
@@ -118,5 +127,10 @@ export const cardDataArray: CardProps[] = [
     title: 'Card 3',
     imgUrl: '/cute.png',
     description: '이것은 카드 내용3입니다.',
+  },
+  {
+    title: 'Card 4',
+    imgUrl: '/cute.png',
+    description: '이것은 카드 내용4입니다.',
   },
 ]
