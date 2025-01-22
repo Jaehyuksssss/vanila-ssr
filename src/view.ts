@@ -1,7 +1,7 @@
 
 import { createAccordion } from "./components/accordion";
 import { showBottomSheet } from "./components/bottomsheet";
-import { showCard, showCards } from "./components/card";
+import { showCards } from "./components/card";
 import { showModal } from "./components/modal";
 import { showToast } from "./components/toast";
 import { Handlers } from "./triggers";
