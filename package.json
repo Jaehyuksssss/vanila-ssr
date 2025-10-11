@@ -1,6 +1,6 @@
 {
   "name": "vanila-components",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "Accessible UI components built for vanilla JavaScript applications.",
   "type": "module",
   "files": [
@@ -55,7 +55,7 @@
   "bugs": {
     "url": "https://github.com/jaehyuksssss/vanila-components/issues"
   },
-  "homepage": "https://github.com/jaehyuksssss/vanila-components#readme",
+  "homepage": "https://docs-vanila-component.vercel.app/",
   "devDependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -63,8 +63,5 @@
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vitest": "^3.2.4"
-  },
-  "dependencies": {
-    "vanila-components": "^0.1.0"
   }
 }

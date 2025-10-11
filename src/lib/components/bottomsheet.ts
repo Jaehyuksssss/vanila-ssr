@@ -1,8 +1,11 @@
 import {
+  applyRootAttributes,
   createElementFromMarkup,
   createId,
+  ensureHostElement,
   focusFirstDescendant,
   isBrowser,
+  joinClassNames,
   preserveActiveElement,
   setComponentAttr,
   setupFocusTrap,
@@ -24,12 +27,22 @@ export interface BottomSheetBehaviorOptions {
   closeOnEscape?: boolean;
 }
 
-export type BottomSheetOptions = BottomSheetContentConfig & BottomSheetBehaviorOptions;
+export interface BottomSheetPresentationOptions {
+  id?: string;
+  className?: string | string[];
+  target?: string | HTMLElement;
+}
+
+export type BottomSheetOptions = BottomSheetContentConfig &
+  BottomSheetBehaviorOptions &
+  BottomSheetPresentationOptions;
 
 export interface BottomSheetMarkupOptions extends Omit<BottomSheetContentConfig, "content"> {
   content: string;
   idPrefix?: string;
   includeDataAttributes?: boolean;
+  id?: string;
+  className?: string | string[];
 }
 
 export type BottomSheetHydrationOptions = BottomSheetBehaviorOptions;
@@ -46,12 +59,16 @@ export const renderBottomSheetMarkup = ({
   primaryButtonText,
   idPrefix,
   includeDataAttributes = true,
+  id,
+  className,
 }: BottomSheetMarkupOptions): string => {
   const headingId = idPrefix ? `${idPrefix}-title` : createId("vanila-bottom-sheet-title");
   const dataAttr = includeDataAttributes ? ` data-vanila-component="${COMPONENT_NAME}"` : "";
+  const idAttr = id ? ` id="${id}"` : "";
+  const wrapperClass = joinClassNames("bottom-sheet-wrapper", "dimmed", className);
 
   return `
-  <div class="bottom-sheet-wrapper dimmed"${dataAttr} tabindex="-1">
+  <div class="${wrapperClass}"${idAttr}${dataAttr} tabindex="-1">
     <div class="bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="${headingId}">
       <div class="bottom-sheet-header">
         <h2 id="${headingId}">${title}</h2>
@@ -175,9 +192,12 @@ export const createBottomSheet = (options: BottomSheetOptions): BottomSheetEleme
     title: options.title,
     content: typeof options.content === "string" ? options.content : "",
     primaryButtonText: options.primaryButtonText,
+    id: options.id,
+    className: options.className,
   });
 
   const wrapper = createElementFromMarkup<HTMLDivElement>(markup) as BottomSheetElement;
+  applyRootAttributes(wrapper, { id: options.id, className: options.className });
   populateContent(wrapper, options.content);
 
   const { close } = attachBehavior(wrapper, options);
@@ -192,7 +212,12 @@ export const showBottomSheet = (options: BottomSheetOptions): BottomSheetElement
   }
 
   const sheet = createBottomSheet(options);
-  document.body.appendChild(sheet);
+  const host = ensureHostElement({
+    componentName: "bottom-sheet",
+    target: options.target,
+    fallback: () => document.body,
+  });
+  host.appendChild(sheet);
   focusFirstDescendant(sheet);
   return sheet;
 };

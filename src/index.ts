@@ -24,6 +24,7 @@ export type {
   BottomSheetHydrationOptions,
   BottomSheetMarkupOptions,
   BottomSheetOptions,
+  BottomSheetPresentationOptions,
 } from "./lib/components/bottomsheet";
 
 export {
@@ -39,6 +40,7 @@ export type {
   CardHydrationOptions,
   CardMarkupOptions,
   CardOptions,
+  RenderCardsOptions,
 } from "./lib/components/card";
 
 export {
@@ -109,6 +111,7 @@ export type {
   ModalHydrationOptions,
   ModalMarkupOptions,
   ModalOptions,
+  ModalPresentationOptions,
 } from "./lib/components/modal";
 
 export {

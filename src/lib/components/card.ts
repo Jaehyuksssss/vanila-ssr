@@ -1,4 +1,13 @@
-import { createElementFromMarkup, isBrowser, setComponentAttr } from "../utils/dom";
+import {
+  applyRootAttributes,
+  createElementFromMarkup,
+  describeTarget,
+  isBrowser,
+  isElement,
+  joinClassNames,
+  resolveTargetElement,
+  setComponentAttr,
+} from "../utils/dom";
 
 const COMPONENT_NAME = "card";
 const DEFAULT_CARD_BUTTON_TEXT = "자세히 보기";
@@ -12,22 +21,19 @@ interface CardContentConfig {
 
 export interface CardOptions extends CardContentConfig {
   onButtonClick?: (event: MouseEvent) => void;
+  id?: string;
+  className?: string | string[];
 }
 
 export interface CardMarkupOptions extends CardContentConfig {
   includeDataAttributes?: boolean;
+  id?: string;
+  className?: string | string[];
 }
 
 export type CardHydrationOptions = Pick<CardOptions, "onButtonClick">;
 
 export interface CardElement extends HTMLDivElement {}
-
-const resolveContainer = (target: string | HTMLElement): HTMLElement | null => {
-  if (typeof target === "string") {
-    return document.getElementById(target) ?? document.querySelector<HTMLElement>(target);
-  }
-  return target;
-};
 
 const renderImageMarkup = (imageUrl?: string): string => {
   if (!imageUrl) {
@@ -43,11 +49,15 @@ export const renderCardMarkup = ({
   imageUrl,
   buttonText,
   includeDataAttributes = true,
+  id,
+  className,
 }: CardMarkupOptions): string => {
   const dataAttr = includeDataAttributes ? ` data-vanila-component="${COMPONENT_NAME}"` : "";
+  const idAttr = id ? ` id="${id}"` : "";
+  const classAttr = `class="${joinClassNames("card", className)}"`;
 
   return `
-  <div class="card"${dataAttr}>
+  <div ${classAttr}${idAttr}${dataAttr}>
     ${renderImageMarkup(imageUrl)}
     <div class="card-content">
       <h3 class="card-title">${title}</h3>
@@ -74,6 +84,7 @@ export const createCard = (options: CardOptions): CardElement => {
 
   const markup = renderCardMarkup(options);
   const card = createElementFromMarkup<HTMLDivElement>(markup) as CardElement;
+  applyRootAttributes(card, { id: options.id, className: options.className });
   attachBehavior(card, options);
   return card;
 };
@@ -88,9 +99,11 @@ export const renderCard = (options: CardOptions, container: string | HTMLElement
     throw new Error("renderCard can only be used in a browser environment.");
   }
 
-  const host = resolveContainer(container);
+  const host = resolveTargetElement(container);
   if (!host) {
-    throw new Error("Container not found for renderCard.");
+    throw new Error(
+      `[vanila-components] renderCard could not find a mounting container "${describeTarget(container)}".`,
+    );
   }
 
   const card = createCard(options);
@@ -98,24 +111,95 @@ export const renderCard = (options: CardOptions, container: string | HTMLElement
   return card;
 };
 
-export const renderCards = (cards: CardOptions[], container: string | HTMLElement): CardElement[] => {
+export interface RenderCardsOptions {
+  cards: CardOptions[];
+  container: string | HTMLElement;
+  clearContainer?: boolean;
+}
+
+type RenderCardsFirstArgument = CardOptions[] | RenderCardsOptions | string | HTMLElement;
+type RenderCardsSecondArgument = CardOptions[] | string | HTMLElement | undefined;
+
+const isRenderCardsConfig = (value: unknown): value is RenderCardsOptions =>
+  typeof value === "object" && value !== null && "cards" in value && "container" in value;
+
+const isMountTarget = (value: unknown): value is string | HTMLElement =>
+  typeof value === "string" || isElement(value);
+
+const normalizeRenderCardsArgs = (
+  first: RenderCardsFirstArgument,
+  second?: RenderCardsSecondArgument,
+): RenderCardsOptions => {
+  if (Array.isArray(first) && isMountTarget(second)) {
+    return {
+      cards: first,
+      container: second as string | HTMLElement,
+      clearContainer: true,
+    };
+  }
+
+  if (isRenderCardsConfig(first)) {
+    if (!isMountTarget(first.container)) {
+      throw new Error(
+        "[vanila-components] renderCards options.container must be a selector string or HTMLElement.",
+      );
+    }
+    return {
+      cards: first.cards,
+      container: first.container,
+      clearContainer: first.clearContainer ?? true,
+    };
+  }
+
+  if (isMountTarget(first) && Array.isArray(second)) {
+    return {
+      container: first as string | HTMLElement,
+      cards: second,
+      clearContainer: true,
+    };
+  }
+
+  throw new Error(
+    "[vanila-components] renderCards expects either (cards, container), (container, cards) or an options object { cards, container, clearContainer }.",
+  );
+};
+
+export function renderCards(container: string | HTMLElement, cards: CardOptions[]): CardElement[];
+export function renderCards(cards: CardOptions[], container: string | HTMLElement): CardElement[];
+export function renderCards(options: RenderCardsOptions): CardElement[];
+export function renderCards(
+  first: RenderCardsFirstArgument,
+  second?: RenderCardsSecondArgument,
+): CardElement[] {
   if (!isBrowser) {
     throw new Error("renderCards can only be used in a browser environment.");
   }
 
-  const host = resolveContainer(container);
-  if (!host) {
-    throw new Error("Container not found for renderCards.");
+  const { cards, container, clearContainer = true } = normalizeRenderCardsArgs(first, second);
+
+  if (!Array.isArray(cards)) {
+    throw new Error(
+      "[vanila-components] renderCards expected an array of card options. Wrap a single card with [] or use renderCard instead.",
+    );
   }
 
-  host.innerHTML = "";
+  const host = resolveTargetElement(container);
+  if (!host) {
+    throw new Error(
+      `[vanila-components] renderCards could not find a mounting container "${describeTarget(container)}".`,
+    );
+  }
+
+  if (clearContainer) {
+    host.innerHTML = "";
+  }
 
   return cards.map((cardOptions) => {
     const card = createCard(cardOptions);
     host.appendChild(card);
     return card;
   });
-};
+}
 
 export const bindCardClickEvents = (
   container: string | HTMLElement,
@@ -125,9 +209,11 @@ export const bindCardClickEvents = (
     return;
   }
 
-  const host = resolveContainer(container);
+  const host = resolveTargetElement(container);
   if (!host) {
-    throw new Error("Container not found for bindCardClickEvents.");
+    throw new Error(
+      `[vanila-components] bindCardClickEvents could not find a container "${describeTarget(container)}".`,
+    );
   }
 
   host.addEventListener("click", (event) => {

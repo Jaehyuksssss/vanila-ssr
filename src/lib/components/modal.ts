@@ -1,8 +1,11 @@
 import {
+  applyRootAttributes,
   createElementFromMarkup,
   createId,
+  ensureHostElement,
   focusFirstDescendant,
   isBrowser,
+  joinClassNames,
   preserveActiveElement,
   setComponentAttr,
   setupFocusTrap,
@@ -26,11 +29,19 @@ export interface ModalBehaviorOptions {
   closeOnEscape?: boolean;
 }
 
-export type ModalOptions = ModalContent & ModalBehaviorOptions;
+export interface ModalPresentationOptions {
+  id?: string;
+  className?: string | string[];
+  target?: string | HTMLElement;
+}
+
+export type ModalOptions = ModalContent & ModalBehaviorOptions & ModalPresentationOptions;
 
 export interface ModalMarkupOptions extends ModalContent {
   idPrefix?: string;
   includeDataAttributes?: boolean;
+  id?: string;
+  className?: string | string[];
 }
 
 export type ModalHydrationOptions = ModalBehaviorOptions;
@@ -47,8 +58,10 @@ const renderSecondaryButton = (text?: string): string => {
   return `<button type="button" class="btn-secondary" data-vanila-modal-secondary>${text}</button>`;
 };
 
-const getTitleId = (base?: string): string => base ?? createId("vanila-modal-title");
-const getMessageId = (base?: string): string => base ?? createId("vanila-modal-message");
+const getTitleId = (base?: string): string =>
+  base ?? createId("vanila-modal-title");
+const getMessageId = (base?: string): string =>
+  base ?? createId("vanila-modal-message");
 
 export const renderModalMarkup = ({
   title,
@@ -57,18 +70,26 @@ export const renderModalMarkup = ({
   secondaryButtonText,
   idPrefix,
   includeDataAttributes = true,
+  id,
+  className,
 }: ModalMarkupOptions): string => {
   const titleId = getTitleId(idPrefix ? `${idPrefix}-title` : undefined);
   const messageId = getMessageId(idPrefix ? `${idPrefix}-message` : undefined);
-  const dataAttr = includeDataAttributes ? ` data-vanila-component="${MODAL_COMPONENT_NAME}"` : "";
+  const dataAttr = includeDataAttributes
+    ? ` data-vanila-component="${MODAL_COMPONENT_NAME}"`
+    : "";
+  const idAttr = id ? ` id="${id}"` : "";
+  const wrapperClass = joinClassNames("modal-wrapper", "dimmed", className);
 
   return `
-  <div class="modal-wrapper dimmed"${dataAttr} tabindex="-1">
+  <div class="${wrapperClass}"${idAttr}${dataAttr} tabindex="-1">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="${titleId}" aria-describedby="${messageId}">
       <h2 class="modal-title" id="${titleId}">${title}</h2>
       <p class="modal-message" id="${messageId}">${message}</p>
       <div class="modal-actions">
-        <button type="button" class="btn-primary" data-vanila-modal-primary>${primaryButtonText ?? DEFAULT_PRIMARY_TEXT}</button>
+        <button type="button" class="btn-primary" data-vanila-modal-primary>${
+          primaryButtonText ?? DEFAULT_PRIMARY_TEXT
+        }</button>
         ${renderSecondaryButton(secondaryButtonText)}
       </div>
     </div>
@@ -107,7 +128,7 @@ type Teardown = () => void;
 
 const attachModalBehavior = (
   wrapper: HTMLDivElement,
-  options: ModalBehaviorOptions,
+  options: ModalBehaviorOptions
 ): { close: () => void; teardown: Teardown } => {
   ensureAriaAttributes(wrapper);
   setComponentAttr(wrapper, MODAL_COMPONENT_NAME);
@@ -115,8 +136,12 @@ const attachModalBehavior = (
   const restoreFocus = preserveActiveElement();
   let isClosed = false;
 
-  const primaryButton = wrapper.querySelector<HTMLButtonElement>("[data-vanila-modal-primary]");
-  const secondaryButton = wrapper.querySelector<HTMLButtonElement>("[data-vanila-modal-secondary]");
+  const primaryButton = wrapper.querySelector<HTMLButtonElement>(
+    "[data-vanila-modal-primary]"
+  );
+  const secondaryButton = wrapper.querySelector<HTMLButtonElement>(
+    "[data-vanila-modal-secondary]"
+  );
 
   const close = () => {
     if (isClosed) {
@@ -195,7 +220,10 @@ export const createModal = (options: ModalOptions): ModalElement => {
   }
 
   const markup = renderModalMarkup(options);
-  const wrapper = createElementFromMarkup<HTMLDivElement>(markup) as ModalElement;
+  const wrapper = createElementFromMarkup<HTMLDivElement>(
+    markup
+  ) as ModalElement;
+  applyRootAttributes(wrapper, { id: options.id, className: options.className });
   const { close } = attachModalBehavior(wrapper, options);
 
   defineCloseProperty(wrapper, close);
@@ -209,14 +237,19 @@ export const showModal = (options: ModalOptions): ModalElement => {
   }
 
   const modal = createModal(options);
-  document.body.appendChild(modal);
+  const host = ensureHostElement({
+    componentName: "modal",
+    target: options.target,
+    fallback: () => document.body,
+  });
+  host.appendChild(modal);
   focusFirstDescendant(modal);
   return modal;
 };
 
 export const hydrateModal = (
   wrapper: HTMLDivElement,
-  options: ModalHydrationOptions = {},
+  options: ModalHydrationOptions = {}
 ): ModalElement => {
   const { close } = attachModalBehavior(wrapper, options);
   defineCloseProperty(wrapper, close);
