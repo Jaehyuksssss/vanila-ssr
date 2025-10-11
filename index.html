@@ -4,31 +4,85 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cards</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Vanila Components Demo</title>
+    <style>
+      body {
+        width: 100vw;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        background: #f1f5f9;
+        padding: 32px 16px 64px;
+        box-sizing: border-box;
+        font-family: "Pretendard", sans-serif;
+      }
+
+      #main-wrapper {
+        width: min(960px, 100%);
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+
+      .demo-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px;
+        border-radius: 12px;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+      }
+
+      .demo-controls__buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      #dashboard-demo {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .metric-grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      #table-container {
+        background: #ffffff;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        padding: 8px;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+      }
+    </style>
   </head>
-  <body
-  style="
-    width: 100vw;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  "
->
+  <body>
     <div id="main-wrapper">
-      <!-- <div class="overlay"></div> -->
-      <!-- <div class="card"></div> -->
-      <button id="open-modal-btn">모달 열리는 버튼</button>
-      <button id="open-toast-btn">토스트 열리는 버튼</button>
-      <button id="open-accordion-btn">아코디언 열리는 버튼</button>
-      <button id="open-bottom-sheet-btn">바텀시트 열리는 버튼</button>
-      <button id="open-card-btn">카드 열리는 버튼</button>
-      <div id="accordion-wrapper"></div>
+      <section class="demo-controls">
+        <div class="demo-controls__buttons">
+          <button id="open-modal-btn">모달 열리는 버튼</button>
+          <button id="open-toast-btn">토스트 열리는 버튼</button>
+          <button id="open-accordion-btn">아코디언 열리는 버튼</button>
+          <button id="open-bottom-sheet-btn">바텀시트 열리는 버튼</button>
+          <button id="open-card-btn">카드 열리는 버튼</button>
+        </div>
+        <div id="accordion-wrapper"></div>
+        <div id="card-demo"></div>
+        <div id="form-controls"></div>
+      </section>
+      <section id="dashboard-demo">
+        <div id="filter-bar"></div>
+        <div id="metric-cards" class="metric-grid"></div>
+        <div id="table-container"></div>
+      </section>
     </div>
-    <!-- <script type="module" src="/src/triggers/index.ts"></script> -->
-    <script type="module" src="/src/view.ts"></script>
-    <!-- <script type="module" src="/src/views/a.ts"></script>
-    <script type="module" src="/src/views/b.ts"></script> -->
+    <script type="module" src="/src/demo/main.ts"></script>
   </body>
 </html>

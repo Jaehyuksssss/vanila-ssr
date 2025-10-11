@@ -1,15 +1,70 @@
 {
-  "name": "vite-project",
-  "private": true,
-  "version": "0.0.0",
+  "name": "vanila-components",
+  "version": "0.1.0",
+  "description": "Accessible UI components built for vanilla JavaScript applications.",
   "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+  "files": [
+    "dist"
+  ],
+  "main": "dist/vanila-components.cjs",
+  "module": "dist/vanila-components.es.js",
+  "unpkg": "dist/vanila-components.umd.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/vanila-components.es.js",
+      "require": "./dist/vanila-components.cjs",
+      "default": "./dist/vanila-components.es.js"
+    },
+    "./styles.css": "./dist/vanila-components.css",
+    "./package.json": "./package.json"
   },
+  "sideEffects": [
+    "./dist/vanila-components.css"
+  ],
+  "scripts": {
+    "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
+    "dev": "vite",
+    "build:types": "tsc --project tsconfig.build.json",
+    "build": "npm run clean && vite build && npm run build:types",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "docs:dev": "npm --prefix docs run dev",
+    "docs:build": "npm --prefix docs run build"
+  },
+  "keywords": [
+    "vanilla-js",
+    "ui-components",
+    "frontend",
+    "modal",
+    "accordion",
+    "ssr",
+    "admin-ui",
+    "toast",
+    "bottomsheet",
+    "data-table"
+  ],
+  "author": "jh",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaehyuksssss/vanila-components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jaehyuksssss/vanila-components/issues"
+  },
+  "homepage": "https://github.com/jaehyuksssss/vanila-components#readme",
   "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "jsdom": "^27.0.0",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "vanila-components": "^0.1.0"
   }
 }
