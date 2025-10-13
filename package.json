@@ -1,7 +1,7 @@
 {
   "name": "vanila-components",
-  "version": "0.2.2",
-  "description": "Accessible UI components built for vanilla JavaScript applications.",
+  "version": "0.2.3",
+  "description": "SSR-first admin UI toolkit for vanilla JavaScript with server-rendered markup and client hydration.",
   "type": "module",
   "files": [
     "dist"
@@ -35,16 +35,30 @@
     "docs:build": "npm --prefix docs run build"
   },
   "keywords": [
+    "ssr",
+    "server-side-rendering",
+    "hydration",
     "vanilla-js",
+    "vanilla-javascript",
+    "ui-toolkit",
     "ui-components",
-    "frontend",
+    "component-library",
+    "admin-ui",
+    "admin-dashboard",
+    "design-system",
+    "accessibility",
     "modal",
     "accordion",
-    "ssr",
-    "admin-ui",
     "toast",
     "bottomsheet",
-    "data-table"
+    "data-table",
+    "UI-library",
+    "UI-components",
+    "UI-framework",
+    "UI-design-system",
+    "UI-design-library",
+    "UI-design-toolkit",
+    "UI-design-framework"
   ],
   "author": "jh",
   "license": "MIT",

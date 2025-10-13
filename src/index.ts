@@ -143,6 +143,13 @@ export type {
   MetricTrend,
 } from "./lib/components/metric-card";
 
-export { hydrateVanilaComponents } from "./lib/hydration";
+export {
+  hydrateVanilaComponents,
+  hydrateAllVanilaComponents,
+} from "./lib/hydration";
+export type {
+  HydrationOptions,
+  HydrateAllVanilaOptions,
+} from "./lib/hydration";
 
 export { injectVanilaStyles, getVanilaStyleText } from "./lib/styles/injectStyles";

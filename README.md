@@ -1,6 +1,10 @@
 # Vanila Components
 
-Vanila Components is an SSR-friendly UI toolkit for teams that live outside the SPA world. It lets you render markup on the server (Razor, Blade/Twig, Go templates, Node) and hydrate behaviour on the client without adopting a full framework. The library ships with battle-tested admin widgets, built-in styling, and TypeScript definitions.
+[![npm version](https://img.shields.io/npm/v/vanila-components.svg)](https://www.npmjs.com/package/vanila-components)
+[![npm downloads](https://img.shields.io/npm/dm/vanila-components.svg)](https://www.npmjs.com/package/vanila-components)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/vanila-components?label=bundle%20size)](https://bundlephobia.com/package/vanila-components)
+
+Vanila Components is an SSR-first UI toolkit for vanilla JavaScript dashboards and multi-framework sites. Render accessible markup on the server (Blade/Twig, Laravel, Razor, Go templates, Express, Next.js API routes) and hydrate behaviour on the client without adopting a SPA framework. The library ships with battle-tested admin widgets, built-in styling, and TypeScript definitions for predictable integrations.
 
 **📚 [Documentation & Playground](https://docs-vanila-component.vercel.app/)** | **📦 [npm Package](https://www.npmjs.com/package/vanila-components)**
 
@@ -23,10 +27,10 @@ npm install vanila-components
 ## Quick Start
 
 ```ts
-import { injectVanilaStyles, showModal, showToast } from "vanila-components";
+import { hydrateAllVanilaComponents, showModal, showToast } from "vanila-components";
 
-// 1) load styles once
-injectVanilaStyles();
+// 1) inject styles once + hydrate any SSR markup
+hydrateAllVanilaComponents();
 
 showModal({
   title: "Welcome",
@@ -40,10 +44,12 @@ showToast({
 });
 ```
 
+`hydrateAllVanilaComponents()` accepts the same `root` selector as `hydrateVanilaComponents()` and adds `injectStyles`, `styleTarget` flags if you need to control where the CSS string is mounted.
+
 ### How it fits into your stack
 
 1. `npm install vanila-components`
-2. Import the CSS bundle or call `injectVanilaStyles()` (Shadow DOM compatible)
+2. Import the CSS bundle, call `hydrateAllVanilaComponents()` for auto-injection, or use `injectVanilaStyles()` (Shadow DOM compatible)
 3. Server-side: generate HTML via `render*Markup()` helpers
 4. Client-side: call the matching `hydrate*()` or `hydrateVanilaComponents()` to attach events
 5. Pure browser usage: use the `create*()` helpers instead of SSR

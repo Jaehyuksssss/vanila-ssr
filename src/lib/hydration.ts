@@ -8,10 +8,16 @@ import { hydrateInputField } from "./components/input-field";
 import { hydrateSelectField } from "./components/select-field";
 import { hydrateModal } from "./components/modal";
 import { hydrateToast } from "./components/toast";
+import { injectVanilaStyles } from "./styles/injectStyles";
 import { isBrowser } from "./utils/dom";
 
 export interface HydrationOptions {
   root?: ParentNode;
+}
+
+export interface HydrateAllVanilaOptions extends HydrationOptions {
+  injectStyles?: boolean;
+  styleTarget?: Document | ShadowRoot;
 }
 
 const SELECTORS = {
@@ -73,4 +79,16 @@ export const hydrateVanilaComponents = ({ root }: HydrationOptions = {}): void =
   scope.querySelectorAll<HTMLDivElement>(SELECTORS.toast).forEach((element) => {
     hydrateToast(element);
   });
+};
+
+export const hydrateAllVanilaComponents = ({
+  injectStyles = true,
+  styleTarget,
+  root,
+}: HydrateAllVanilaOptions = {}): void => {
+  if (injectStyles) {
+    injectVanilaStyles(styleTarget);
+  }
+
+  hydrateVanilaComponents({ root });
 };
