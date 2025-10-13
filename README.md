@@ -11,7 +11,7 @@ Vanila Components is an SSR-first UI toolkit for vanilla JavaScript dashboards a
 ## Highlights
 
 - **SSR-first** – Every component exposes `render*Markup` and `hydrate*` helpers so you can generate HTML on the server and attach behaviour on the client.
-- **Admin-ready widgets** – Filter bars, data tables, metric cards, accordions, toasts, modals, bottom sheets, cards, input/select fields, and more.
+- **Admin-ready widgets** – Filter bars, data tables, metric cards, accordions, toasts, modals, bottom sheets, cards, input/select/date pickers, pagination, banners, and file uploaders.
 - **Accessible by default** – Focus trapping for modals, keyboard-friendly interactions, ARIA attributes, and consistent design tokens.
 - **Styling options** – Import the bundled CSS, inject at runtime, or pull the raw stylesheet string for custom pipelines.
 - **Consistent DX** – Mount helpers share optional `target`, `id`, and `className` props so you can wire components without guessing argument order.
@@ -258,6 +258,74 @@ const filterBar = createFilterBar({
   autoSubmit: true,
   onSubmit: (values) => console.log(values),
 });
+```
+
+### Date & Time Picker
+
+```ts
+import { createDatePicker } from "vanila-components";
+
+const createdRange = createDatePicker({
+  mode: "date-range",
+  name: "createdAt",
+  label: "Created between",
+  defaultValue: {
+    start: "2024-01-01",
+    end: "2024-01-07",
+  },
+  onChange: (value) => console.log(value),
+});
+
+createdRange.setMin("2023-12-01");
+document.body.append(createdRange);
+```
+
+### Pagination
+
+```ts
+import { createPagination } from "vanila-components";
+
+const pagination = createPagination({
+  totalPages: 12,
+  currentPage: 4,
+  showFirstLast: true,
+  onPageChange: (page) => console.log("Page moved to", page),
+});
+
+pagination.setCurrentPage(6);
+document.body.append(pagination);
+```
+
+### Banner
+
+```ts
+import { createBanner } from "vanila-components";
+
+const banner = createBanner({
+  message: "새로운 버전이 배포되었습니다.",
+  variant: "success",
+  dismissible: true,
+  actions: [{ label: "변경 사항 보기", href: "/changelog" }],
+  onAction: (action) => console.log(action.label, "clicked"),
+});
+
+document.body.prepend(banner);
+```
+
+### File Uploader
+
+```ts
+import { createFileUploader } from "vanila-components";
+
+const uploader = createFileUploader({
+  name: "attachments",
+  label: "첨부 파일",
+  multiple: true,
+  maxFiles: 5,
+  onFilesChange: (files) => console.log(files.length, "file(s) selected"),
+});
+
+document.body.append(uploader);
 ```
 
 ### Data Table

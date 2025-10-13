@@ -59,6 +59,22 @@ export type {
 } from "./lib/components/data-table";
 
 export {
+  createDatePicker,
+  hydrateDatePicker,
+  renderDatePickerMarkup,
+} from "./lib/components/date-picker";
+export type {
+  DatePickerElement,
+  DatePickerOptions,
+  DatePickerMarkupOptions,
+  DatePickerHydrationOptions,
+  DatePickerMode,
+  DatePickerRangeValue,
+  DatePickerValue,
+  DatePickerSize,
+} from "./lib/components/date-picker";
+
+export {
   createFilterBar,
   hydrateFilterBar,
   renderFilterBarMarkup,
@@ -144,6 +160,19 @@ export type {
 } from "./lib/components/metric-card";
 
 export {
+  createPagination,
+  hydratePagination,
+  renderPaginationMarkup,
+} from "./lib/components/pagination";
+export type {
+  PaginationElement,
+  PaginationOptions,
+  PaginationMarkupOptions,
+  PaginationHydrationOptions,
+  PaginationSize,
+} from "./lib/components/pagination";
+
+export {
   hydrateVanilaComponents,
   hydrateAllVanilaComponents,
 } from "./lib/hydration";
@@ -153,3 +182,32 @@ export type {
 } from "./lib/hydration";
 
 export { injectVanilaStyles, getVanilaStyleText } from "./lib/styles/injectStyles";
+
+export {
+  renderBannerMarkup,
+  createBanner,
+  hydrateBanner,
+} from "./lib/components/banner";
+export type {
+  BannerOptions,
+  BannerMarkupOptions,
+  BannerHydrationOptions,
+  BannerElement,
+  BannerVariant,
+  BannerAction,
+  BannerActionVariant,
+} from "./lib/components/banner";
+
+export {
+  renderFileUploaderMarkup,
+  createFileUploader,
+  hydrateFileUploader,
+} from "./lib/components/file-uploader";
+export type {
+  FileUploaderOptions,
+  FileUploaderMarkupOptions,
+  FileUploaderHydrationOptions,
+  FileUploaderElement,
+  FileUploaderError,
+  FileUploaderSize,
+} from "./lib/components/file-uploader";
