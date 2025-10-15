@@ -1,6 +1,6 @@
 {
   "name": "vanila-components",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "SSR-first admin UI toolkit for vanilla JavaScript with server-rendered markup and client hydration.",
   "type": "module",
   "files": [
