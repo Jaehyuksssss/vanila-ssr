@@ -1698,40 +1698,6 @@
   color: hsl(var(--muted-foreground));
 }
 
-/* === Theme Support (Optional) === */
-/* Users can apply CSS variables by calling applyTheme() */
-:root {
-  --vanila-theme-bg: #ffffff;
-  --vanila-theme-fg: #0f172a;
-  --vanila-theme-border: #e5e7eb;
-  --vanila-theme-primary: #2563eb;
-  --vanila-theme-success: #16a34a;
-  --vanila-theme-warning: #ea580c;
-  --vanila-theme-danger: #dc2626;
-  --vanila-theme-info: #0284c7;
-}
-
-/* Optional: Apply theme variables to badges when theme is active */
-[data-theme] .vanila-badge--success {
-  color: var(--vanila-theme-success, #15803d);
-}
-
-[data-theme] .vanila-badge--warning {
-  color: var(--vanila-theme-warning, #b45309);
-}
-
-[data-theme] .vanila-badge--danger {
-  color: var(--vanila-theme-danger, #b91c1c);
-}
-
-[data-theme] .vanila-badge--info {
-  color: var(--vanila-theme-info, #1d4ed8);
-}
-
-[data-theme] .vanila-progress__bar {
-  background: linear-gradient(
-    90deg,
-    var(--vanila-theme-primary, #3b82f6),
-    var(--vanila-theme-primary-hover, #2563eb)
-  );
-}
+/* === Legacy Theme Support (Deprecated) === */
+/* These are kept for backward compatibility only */
+/* Use the new HSL-based design tokens above instead */

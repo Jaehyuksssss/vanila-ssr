@@ -1,4 +1,3 @@
-import "./lib/styles/design-tokens.css";
 import "./lib/styles/vanila.css";
 
 export {

@@ -7,28 +7,28 @@
     "dist"
   ],
   "main": "dist/vanila-components.cjs",
-  "module": "dist/vanila-components.es.js",
+  "module": "dist/vanila-components.js",
   "unpkg": "dist/vanila-components.umd.js",
   "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/vanila-components.es.js",
+      "import": "./dist/vanila-components.js",
       "require": "./dist/vanila-components.cjs",
-      "default": "./dist/vanila-components.es.js"
+      "default": "./dist/vanila-components.js"
     },
     "./package.json": "./package.json",
     "./utilities": {
       "types": "./dist/types/lib/utilities/index.d.ts",
-      "import": "./dist/vanila-components.es.js",
+      "import": "./dist/vanila-components.js",
       "require": "./dist/vanila-components.cjs",
-      "default": "./dist/vanila-components.es.js"
+      "default": "./dist/vanila-components.js"
     },
     "./theme": {
       "types": "./dist/types/lib/theme/index.d.ts",
-      "import": "./dist/vanila-components.es.js",
+      "import": "./dist/vanila-components.js",
       "require": "./dist/vanila-components.cjs",
-      "default": "./dist/vanila-components.es.js"
+      "default": "./dist/vanila-components.js"
     },
     "./styles.css": "./dist/vanila-components.css"
   },
@@ -36,7 +36,7 @@
     "./dist/vanila-components.css"
   ],
   "browser": {
-    "./dist/vanila-components.cjs": "./dist/vanila-components.es.js"
+    "./dist/vanila-components.cjs": "./dist/vanila-components.js"
   },
   "scripts": {
     "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
