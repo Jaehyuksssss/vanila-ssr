@@ -2,6 +2,70 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.2] - 2025-10-15
+
+**Complete visual redesign inspired by shadcn/ui**
+
+- **HSL Color System**: Replaced RGB with HSL for better theming flexibility
+- **Subtle Shadows**: Professional depth with minimal visual weight
+- **Ring Focus States**: Modern, accessible focus indicators (replacing old outline)
+- **Refined Typography**: Improved font scale (0.75rem - 2rem) with letter-spacing
+- **Smaller Radius**: More refined border radius (6px, 8px vs 12px, 16px)
+- **Smoother Animations**: Cubic-bezier easing for premium feel
+
+#### Key Visual Changes
+
+| Component | Before          | After                               |
+| --------- | --------------- | ----------------------------------- |
+| Buttons   | Bold, iOS-style | Subtle, refined height:36px         |
+| Badges    | Vibrant colors  | Subtle with 10% opacity backgrounds |
+| Inputs    | Heavy borders   | Clean with ring focus states        |
+| Tables    | Generic gray    | Professional muted backgrounds      |
+| Cards     | Sharp shadows   | Soft, layered depth                 |
+| Progress  | Thick bars      | Slim 8px with smooth animation      |
+
+#### New Design Tokens
+
+```css
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --primary: 221.2 83.2% 53.3%;
+  --border: 214.3 31.8% 91.4%;
+  --ring: 221.2 83.2% 53.3%;
+  /* + 15 more semantic tokens */
+}
+```
+
+#### Dark Mode Improvements
+
+- Optimized contrast ratios
+- Softer accent colors
+- Better readability
+- Automatic theme-aware utilities
+
+### 🚀 Bundle Impact
+
+- CSS: 24KB → 28KB (+4KB for design tokens)
+- Gzipped: 5.18KB → 5.95KB (+0.77KB)
+- **Worth it**: Professional look for <1KB gzip
+
+### 🔄 Migration
+
+**No breaking changes!** Your code works as-is. The new design applies automatically.
+
+Optional: Use new design tokens for custom components:
+
+```css
+.my-component {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+}
+```
+
+---
+
 ## [0.3.0] - 2025-10-14
 
 ### 🎉 Major Features

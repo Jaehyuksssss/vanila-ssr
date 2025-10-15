@@ -1,6 +1,6 @@
 /**
  * Theme system
- * Provides lightweight theming with light/dark mode support
+ * Provides lightweight theming with light/dark mode support and FART prevention
  * @module theme
  */
 
@@ -11,6 +11,8 @@ export {
   removeTheme,
   getCurrentThemeMode,
   toggleTheme,
+  initializeTheme,
+  generateThemeScript,
 } from './applyTheme';
 export type { ThemeMode, ThemeTokens, ThemeConfig } from './types';
 

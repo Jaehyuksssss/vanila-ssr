@@ -17,11 +17,100 @@ import { isBrowser } from "./utils/dom";
 
 export interface HydrationOptions {
   root?: ParentNode;
+  /** Skip already hydrated elements (default: true) */
+  skipHydrated?: boolean;
+  /** Log hydration warnings (default: false in production) */
+  debug?: boolean;
 }
 
 export interface HydrateAllVanilaOptions extends HydrationOptions {
   injectStyles?: boolean;
   styleTarget?: Document | ShadowRoot;
+}
+
+// Hydration state tracking
+const HYDRATED_ATTRIBUTE = 'data-vanila-hydrated';
+const HYDRATION_HASH_ATTRIBUTE = 'data-vanila-hash';
+
+/**
+ * Generate a simple hash from element attributes for hydration validation
+ */
+function generateElementHash(element: Element): string {
+  const attrs = Array.from(element.attributes)
+    .filter(attr => !attr.name.startsWith('data-vanila-'))
+    .map(attr => `${attr.name}=${attr.value}`)
+    .sort()
+    .join('|');
+  
+  let hash = 0;
+  for (let i = 0; i < attrs.length; i++) {
+    const char = attrs.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32-bit integer
+  }
+  return hash.toString(36);
+}
+
+/**
+ * Check if element is already hydrated and optionally validate consistency
+ */
+function isElementHydrated(element: Element, debug = false): boolean {
+  const isHydrated = element.hasAttribute(HYDRATED_ATTRIBUTE);
+  
+  if (isHydrated && debug) {
+    const currentHash = generateElementHash(element);
+    const storedHash = element.getAttribute(HYDRATION_HASH_ATTRIBUTE);
+    
+    if (storedHash && currentHash !== storedHash) {
+      console.warn(
+        '[Vanila Components] Hydration mismatch detected. Element may have been modified after SSR.',
+        { element, currentHash, storedHash }
+      );
+    }
+  }
+  
+  return isHydrated;
+}
+
+/**
+ * Mark element as hydrated with optional hash for validation
+ */
+function markElementHydrated(element: Element, debug = false): void {
+  element.setAttribute(HYDRATED_ATTRIBUTE, 'true');
+  
+  if (debug) {
+    const hash = generateElementHash(element);
+    element.setAttribute(HYDRATION_HASH_ATTRIBUTE, hash);
+  }
+}
+
+/**
+ * Safe hydration wrapper that prevents duplicate hydration
+ */
+function safeHydrate(
+  element: Element,
+  hydrateFn: (el: any) => void,
+  options: { skipHydrated?: boolean; debug?: boolean } = {}
+): void {
+  const { skipHydrated = true, debug = false } = options;
+  
+  if (skipHydrated && isElementHydrated(element, debug)) {
+    if (debug) {
+      console.log('[Vanila Components] Skipping already hydrated element:', element);
+    }
+    return;
+  }
+  
+  try {
+    hydrateFn(element);
+    markElementHydrated(element, debug);
+    
+    if (debug) {
+      console.log('[Vanila Components] Successfully hydrated:', element);
+    }
+  } catch (error) {
+    console.error('[Vanila Components] Hydration failed:', error, element);
+  }
 }
 
 const SELECTORS = {
@@ -41,67 +130,76 @@ const SELECTORS = {
   fileUploader: "[data-vanila-component='file-uploader']",
 } as const;
 
-export const hydrateVanilaComponents = ({ root }: HydrationOptions = {}): void => {
+export const hydrateVanilaComponents = ({ 
+  root, 
+  skipHydrated = true, 
+  debug = false 
+}: HydrationOptions = {}): void => {
   if (!isBrowser) {
+    if (debug) {
+      console.warn('[Vanila Components] Hydration skipped: not in browser environment');
+    }
     return;
   }
 
   const scope = root ?? document;
+  const hydrateOptions = { skipHydrated, debug };
 
+  // Hydrate all component types with safety checks
   scope.querySelectorAll<HTMLDivElement>(SELECTORS.accordion).forEach((element) => {
-    hydrateAccordion(element);
+    safeHydrate(element, hydrateAccordion, hydrateOptions);
   });
 
   scope.querySelectorAll<HTMLDivElement>(SELECTORS.bottomSheet).forEach((element) => {
-    hydrateBottomSheet(element);
+    safeHydrate(element, hydrateBottomSheet, hydrateOptions);
   });
 
   scope.querySelectorAll<HTMLDivElement>(SELECTORS.card).forEach((element) => {
-    hydrateCard(element);
+    safeHydrate(element, hydrateCard, hydrateOptions);
   });
 
   scope.querySelectorAll<HTMLDivElement>(SELECTORS.dataTable).forEach((element) => {
-    hydrateDataTable(element);
+    safeHydrate(element, hydrateDataTable, hydrateOptions);
   });
 
   scope.querySelectorAll<HTMLFormElement>(SELECTORS.filterBar).forEach((element) => {
-    hydrateFilterBar(element);
+    safeHydrate(element, hydrateFilterBar, hydrateOptions);
   });
 
   scope.querySelectorAll<HTMLDivElement>(SELECTORS.datePicker).forEach((element) => {
-    hydrateDatePicker(element);
+    safeHydrate(element, hydrateDatePicker, hydrateOptions);
   });
 
   scope.querySelectorAll<HTMLDivElement>(SELECTORS.metricCard).forEach((element) => {
-    hydrateMetricCard(element);
+    safeHydrate(element, hydrateMetricCard, hydrateOptions);
   });
 
   scope.querySelectorAll<HTMLDivElement>(SELECTORS.inputField).forEach((element) => {
-    hydrateInputField(element);
+    safeHydrate(element, hydrateInputField, hydrateOptions);
   });
 
   scope.querySelectorAll<HTMLDivElement>(SELECTORS.selectField).forEach((element) => {
-    hydrateSelectField(element);
+    safeHydrate(element, hydrateSelectField, hydrateOptions);
   });
 
   scope.querySelectorAll<HTMLDivElement>(SELECTORS.modal).forEach((element) => {
-    hydrateModal(element);
+    safeHydrate(element, hydrateModal, hydrateOptions);
   });
 
   scope.querySelectorAll<HTMLDivElement>(SELECTORS.toast).forEach((element) => {
-    hydrateToast(element);
+    safeHydrate(element, hydrateToast, hydrateOptions);
   });
 
   scope.querySelectorAll<HTMLElement>(SELECTORS.pagination).forEach((element) => {
-    hydratePagination(element);
+    safeHydrate(element, hydratePagination, hydrateOptions);
   });
 
   scope.querySelectorAll<HTMLDivElement>(SELECTORS.banner).forEach((element) => {
-    hydrateBanner(element);
+    safeHydrate(element, hydrateBanner, hydrateOptions);
   });
 
   scope.querySelectorAll<HTMLDivElement>(SELECTORS.fileUploader).forEach((element) => {
-    hydrateFileUploader(element);
+    safeHydrate(element, hydrateFileUploader, hydrateOptions);
   });
 };
 
@@ -109,10 +207,44 @@ export const hydrateAllVanilaComponents = ({
   injectStyles = true,
   styleTarget,
   root,
+  skipHydrated = true,
+  debug = false,
 }: HydrateAllVanilaOptions = {}): void => {
   if (injectStyles) {
     injectVanilaStyles(styleTarget);
   }
 
-  hydrateVanilaComponents({ root });
+  hydrateVanilaComponents({ root, skipHydrated, debug });
+};
+
+/**
+ * Lazy hydration utility - hydrates components when they become visible
+ */
+export const hydrateOnVisible = (
+  selector: string,
+  hydrateFn: (element: Element) => void,
+  options: { root?: Element; rootMargin?: string; threshold?: number } = {}
+): void => {
+  if (!isBrowser || !('IntersectionObserver' in window)) {
+    // Fallback to immediate hydration if IntersectionObserver is not available
+    document.querySelectorAll(selector).forEach(hydrateFn);
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        hydrateFn(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    root: options.root || null,
+    rootMargin: options.rootMargin || '50px',
+    threshold: options.threshold || 0.1,
+  });
+
+  document.querySelectorAll(selector).forEach((element) => {
+    observer.observe(element);
+  });
 };

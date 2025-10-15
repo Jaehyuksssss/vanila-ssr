@@ -4,17 +4,18 @@
 [![npm downloads](https://img.shields.io/npm/dm/vanila-components.svg)](https://www.npmjs.com/package/vanila-components)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/vanila-components?label=bundle%20size)](https://bundlephobia.com/package/vanila-components)
 
-Vanila Components is an SSR-first UI toolkit for vanilla JavaScript dashboards and multi-framework sites. Render accessible markup on the server (Blade/Twig, Laravel, Razor, Go templates, Express, Next.js API routes) and hydrate behaviour on the client without adopting a SPA framework. The library ships with battle-tested admin widgets, built-in styling, and TypeScript definitions for predictable integrations.
+Vanila Components is an SSR-first UI toolkit for vanilla JavaScript dashboards and multi-framework sites. Render accessible markup on the server (Blade/Twig, Laravel, Razor, Go templates, Express, Next.js API routes) and hydrate behaviour on the client without adopting a SPA framework. The library ships with battle-tested admin widgets, **shadcn/ui-inspired styling**, and TypeScript definitions for predictable integrations.
 
 **📚 [Documentation & Playground](https://docs-vanila-component.vercel.app/)** | **📦 [npm Package](https://www.npmjs.com/package/vanila-components)**
 
 ## Highlights
 
+- **🎨 shadcn/ui Design** _(v0.3.1)_ – Professional, refined styling with subtle shadows, HSL colors, and perfect dark mode.
 - **SSR-first** – Every component exposes `render*Markup` and `hydrate*` helpers so you can generate HTML on the server and attach behaviour on the client.
 - **Admin-ready widgets** – Filter bars, data tables, metric cards, accordions, toasts, modals, bottom sheets, cards, input/select/date pickers, pagination, banners, and file uploaders.
 - **🆕 Utility components** _(v0.3.0)_ – Pre-styled badges, chips, status dots, and table helpers to eliminate repetitive CSS.
-- **🆕 Theme system** _(v0.3.0)_ – Built-in light/dark mode support with customizable color tokens.
-- **Accessible by default** – Focus trapping for modals, keyboard-friendly interactions, ARIA attributes, and consistent design tokens.
+- **🆕 Theme system** _(v0.3.0)_ – Built-in light/dark mode support with customizable HSL color tokens.
+- **Accessible by default** – Focus ring states, keyboard-friendly interactions, ARIA attributes, and consistent design tokens.
 - **Styling options** – Import the bundled CSS, inject at runtime, or pull the raw stylesheet string for custom pipelines.
 - **Consistent DX** – Mount helpers share optional `target`, `id`, and `className` props so you can wire components without guessing argument order.
 - **TypeScript + tests** – Rich typings and Vitest coverage for critical behaviours (SSR markup, hydration, event APIs, custom delete flows, etc.).
@@ -383,24 +384,24 @@ Pre-built, styled components for common UI patterns. **No custom CSS required!**
 import { renderBadge, TableHelpers } from "vanila-components";
 
 // Standalone usage
-const badge = renderBadge({ 
-  label: 'Active', 
-  variant: 'success', 
-  dot: true 
+const badge = renderBadge({
+  label: "Active",
+  variant: "success",
+  dot: true,
 });
 
 // In DataTable
 createDataTable({
   columns: [
     {
-      key: 'status',
-      header: 'Status',
+      key: "status",
+      header: "Status",
       ...TableHelpers.statusColumn({
-        'active': 'success',
-        'pending': 'warning',
-        'failed': 'danger',
-      })
-    }
+        active: "success",
+        pending: "warning",
+        failed: "danger",
+      }),
+    },
   ],
   data: rows,
 });
@@ -415,14 +416,14 @@ import { createChip, renderChips } from "vanila-components";
 
 // Interactive chip
 const chip = createChip({
-  label: 'TypeScript',
-  value: 'ts',
+  label: "TypeScript",
+  value: "ts",
   removable: true,
-  onRemove: (value) => console.log('Removed:', value)
+  onRemove: (value) => console.log("Removed:", value),
 });
 
 // Multiple chips
-const html = renderChips(['React', 'Vue', 'Angular'], { removable: true });
+const html = renderChips(["React", "Vue", "Angular"], { removable: true });
 ```
 
 ### Status Dot
@@ -431,7 +432,7 @@ const html = renderChips(['React', 'Vue', 'Angular'], { removable: true });
 import { renderStatusDot, StatusPresets } from "vanila-components";
 
 // Custom status
-renderStatusDot({ label: 'Online', color: 'green', pulse: true });
+renderStatusDot({ label: "Online", color: "green", pulse: true });
 
 // Quick presets
 StatusPresets.online();
@@ -449,38 +450,38 @@ import { createDataTable, TableHelpers } from "vanila-components";
 createDataTable({
   columns: [
     {
-      key: 'status',
-      header: 'Status',
+      key: "status",
+      header: "Status",
       ...TableHelpers.statusBadgeWithDot({
-        'healthy': 'success',
-        'warning': 'warning',
-        'critical': 'danger',
-      })
+        healthy: "success",
+        warning: "warning",
+        critical: "danger",
+      }),
     },
     {
-      key: 'progress',
-      header: 'Progress',
-      ...TableHelpers.progressColumn() // Visual progress bar
+      key: "progress",
+      header: "Progress",
+      ...TableHelpers.progressColumn(), // Visual progress bar
     },
     {
-      key: 'health',
-      header: 'Health',
-      ...TableHelpers.healthColumn() // Colored status dots
+      key: "health",
+      header: "Health",
+      ...TableHelpers.healthColumn(), // Colored status dots
     },
     {
-      key: 'createdAt',
-      header: 'Created',
-      ...TableHelpers.dateColumn('relative') // "2h ago"
+      key: "createdAt",
+      header: "Created",
+      ...TableHelpers.dateColumn("relative"), // "2h ago"
     },
     {
-      key: 'revenue',
-      header: 'Revenue',
-      ...TableHelpers.numberColumn({ prefix: '$', decimals: 2 })
+      key: "revenue",
+      header: "Revenue",
+      ...TableHelpers.numberColumn({ prefix: "$", decimals: 2 }),
     },
     {
-      key: 'tags',
-      header: 'Tags',
-      ...TableHelpers.tagsColumn() // Multiple badges
+      key: "tags",
+      header: "Tags",
+      ...TableHelpers.tagsColumn(), // Multiple badges
     },
   ],
   data: rows,
@@ -488,6 +489,7 @@ createDataTable({
 ```
 
 **Available helpers:**
+
 - `statusColumn()` – Status badges
 - `statusBadgeWithDot()` – Status badges with indicator dot
 - `progressColumn()` – Visual progress bars
@@ -508,10 +510,10 @@ Built-in dark mode and color customization.
 import { applyThemeMode, toggleTheme } from "vanila-components";
 
 // Apply dark mode
-applyThemeMode('dark');
+applyThemeMode("dark");
 
 // Toggle theme
-document.getElementById('theme-toggle')?.addEventListener('click', () => {
+document.getElementById("theme-toggle")?.addEventListener("click", () => {
   toggleTheme();
 });
 ```
@@ -521,9 +523,9 @@ document.getElementById('theme-toggle')?.addEventListener('click', () => {
 ```ts
 import { applyThemeMode } from "vanila-components";
 
-applyThemeMode('light', {
-  '--vanila-theme-primary': '#8b5cf6',    // Purple
-  '--vanila-theme-success': '#10b981',    // Custom green
+applyThemeMode("light", {
+  "--vanila-theme-primary": "#8b5cf6", // Purple
+  "--vanila-theme-success": "#10b981", // Custom green
 });
 ```
 
@@ -535,8 +537,8 @@ import { applyTheme, lightTheme, darkTheme } from "vanila-components";
 // Full control
 const customTheme = {
   ...darkTheme,
-  '--vanila-theme-primary': '#ff6b6b',
-  '--vanila-theme-bg': '#1a1a2e',
+  "--vanila-theme-primary": "#ff6b6b",
+  "--vanila-theme-bg": "#1a1a2e",
 };
 
 applyTheme(customTheme);
@@ -546,6 +548,7 @@ applyTheme(darkTheme, shadowRoot);
 ```
 
 **Supported tokens:**
+
 - Background: `--vanila-theme-bg`, `--vanila-theme-bg-secondary`
 - Foreground: `--vanila-theme-fg`, `--vanila-theme-fg-muted`
 - Border: `--vanila-theme-border`

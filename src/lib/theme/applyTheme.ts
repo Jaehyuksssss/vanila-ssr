@@ -1,130 +1,212 @@
 /**
  * Theme application utilities
+ * Includes FART (Flash of Incorrect Theme) prevention
  * @module theme/applyTheme
  */
 
-import type { ThemeConfig, ThemeMode } from './types';
-import { lightTheme, darkTheme } from './tokens';
+import type { ThemeMode, ThemeTokens, ThemeConfig } from "./types";
+import { lightTheme, darkTheme } from "./tokens";
+
+const THEME_STORAGE_KEY = "vanila-theme-mode";
+const THEME_ATTRIBUTE = "data-vanila-theme";
 
 /**
- * Applies theme tokens to the document root or a specific element
- * @param tokens - CSS custom properties to apply
- * @param target - Target element (defaults to document.documentElement)
- * 
- * @example
- * ```typescript
- * import { applyTheme, darkTheme } from 'vanila-components/theme';
- * 
- * applyTheme(darkTheme);
- * ```
+ * Get system preference for color scheme
  */
-export function applyTheme(
-  tokens: ThemeConfig,
-  target?: HTMLElement
-): void {
-  if (typeof document === 'undefined') {
-    return;
-  }
+function getSystemTheme(): ThemeMode {
+  if (typeof window === "undefined") return "light";
 
-  const root = target ?? document.documentElement;
-  
-  Object.entries(tokens).forEach(([key, value]) => {
-    if (value) {
-      root.style.setProperty(key, value);
-    }
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+/**
+ * Get stored theme preference
+ */
+function getStoredTheme(): ThemeMode | null {
+  if (typeof localStorage === "undefined") return null;
+
+  const stored = localStorage.getItem(THEME_STORAGE_KEY);
+  return stored === "dark" || stored === "light" ? stored : null;
+}
+
+/**
+ * Store theme preference
+ */
+function storeTheme(mode: ThemeMode): void {
+  if (typeof localStorage !== "undefined") {
+    localStorage.setItem(THEME_STORAGE_KEY, mode);
+  }
+}
+
+/**
+ * Apply CSS custom properties to target element
+ */
+function applyCSSProperties(
+  target: HTMLElement | Document,
+  tokens: Partial<ThemeTokens>
+): void {
+  const element = target instanceof Document ? target.documentElement : target;
+
+  Object.entries(tokens).forEach(([property, value]) => {
+    if (value) element.style.setProperty(property, value);
   });
 }
 
 /**
- * Applies a theme mode (light or dark) with optional overrides
- * @param mode - Theme mode ('light' or 'dark')
- * @param overrides - Custom token overrides
- * @param target - Target element
- * 
- * @example
- * ```typescript
- * import { applyThemeMode } from 'vanila-components/theme';
- * 
- * // Apply dark mode
- * applyThemeMode('dark');
- * 
- * // Apply dark mode with custom primary color
- * applyThemeMode('dark', {
- *   '--vanila-theme-primary': '#8b5cf6',
- * });
- * ```
+ * Apply theme tokens to target
+ */
+export function applyTheme(
+  tokens: Partial<ThemeTokens>,
+  target: HTMLElement | Document = document
+): void {
+  applyCSSProperties(target, tokens as ThemeTokens);
+}
+
+/**
+ * Apply theme mode (light/dark) with built-in tokens
  */
 export function applyThemeMode(
   mode: ThemeMode,
-  overrides?: ThemeConfig,
-  target?: HTMLElement
+  config: ThemeConfig = {}
 ): void {
-  const baseTheme = mode === 'dark' ? darkTheme : lightTheme;
-  const finalTheme = { ...baseTheme, ...overrides };
-  
-  applyTheme(finalTheme, target);
-  
-  // Also set data attribute for potential CSS selectors
-  const root = target ?? document.documentElement;
-  root.setAttribute('data-theme', mode);
+  const { target = document, persist = true, customTokens = {} } = config;
+
+  // Get base tokens
+  const baseTokens = mode === "dark" ? darkTheme : lightTheme;
+
+  // Merge with custom tokens
+  const tokens = { ...baseTokens, ...customTokens };
+
+  // Apply theme
+  applyTheme(tokens, target);
+
+  // Set theme attribute for CSS selectors
+  const element = target instanceof Document ? target.documentElement : target;
+  element.setAttribute(THEME_ATTRIBUTE, mode);
+
+  // Persist preference
+  if (persist) {
+    storeTheme(mode);
+  }
+
+  // Dispatch theme change event
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(
+      new CustomEvent("vanila-theme-change", {
+        detail: { mode, tokens },
+      })
+    );
+  }
 }
 
 /**
- * Removes all theme tokens from the target element
- * @param target - Target element (defaults to document.documentElement)
+ * Remove theme from target
  */
-export function removeTheme(target?: HTMLElement): void {
-  if (typeof document === 'undefined') {
-    return;
-  }
+export function removeTheme(target: HTMLElement | Document = document): void {
+  const element = target instanceof Document ? target.documentElement : target;
 
-  const root = target ?? document.documentElement;
-  const themeKeys = Object.keys({ ...lightTheme });
-  
-  themeKeys.forEach((key) => {
-    root.style.removeProperty(key);
+  // Remove CSS properties
+  Object.keys({ ...lightTheme, ...darkTheme }).forEach((property) => {
+    element.style.removeProperty(property);
   });
-  
-  root.removeAttribute('data-theme');
+
+  // Remove theme attribute
+  element.removeAttribute(THEME_ATTRIBUTE);
 }
 
 /**
- * Gets the current theme mode from the document
- * @returns Current theme mode or null if not set
+ * Get current theme mode
  */
-export function getCurrentThemeMode(): ThemeMode | null {
-  if (typeof document === 'undefined') {
-    return null;
-  }
+export function getCurrentThemeMode(): ThemeMode {
+  if (typeof document === "undefined") return "light";
 
-  const mode = document.documentElement.getAttribute('data-theme');
-  return mode === 'light' || mode === 'dark' ? mode : null;
+  const current = document.documentElement.getAttribute(THEME_ATTRIBUTE);
+  return current === "dark" ? "dark" : "light";
 }
 
 /**
- * Toggles between light and dark theme
- * @param overrides - Custom token overrides to apply
- * @param target - Target element
- * 
- * @example
- * ```typescript
- * import { toggleTheme } from 'vanila-components/theme';
- * 
- * document.getElementById('theme-toggle')?.addEventListener('click', () => {
- *   toggleTheme();
- * });
- * ```
+ * Toggle between light and dark themes
  */
-export function toggleTheme(
-  overrides?: ThemeConfig,
-  target?: HTMLElement
-): ThemeMode {
-  const currentMode = getCurrentThemeMode();
-  const newMode: ThemeMode = currentMode === 'dark' ? 'light' : 'dark';
-  
-  applyThemeMode(newMode, overrides, target);
-  
+export function toggleTheme(config: ThemeConfig = {}): ThemeMode {
+  const current = getCurrentThemeMode();
+  const newMode = current === "light" ? "dark" : "light";
+
+  applyThemeMode(newMode, config);
   return newMode;
 }
 
+/**
+ * Initialize theme with preference detection
+ * Call this early in your app to prevent FART
+ */
+export function initializeTheme(config: ThemeConfig = {}): ThemeMode {
+  // Priority: stored preference > system preference > light
+  const storedTheme = getStoredTheme();
+  const systemTheme = getSystemTheme();
+  const initialTheme = storedTheme || systemTheme;
 
+  applyThemeMode(initialTheme, { ...config, persist: storedTheme === null });
+
+  // Listen for system theme changes
+  if (typeof window !== "undefined" && !storedTheme) {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (!getStoredTheme()) {
+        // Only follow system if no stored preference
+        applyThemeMode(e.matches ? "dark" : "light", config);
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+  }
+
+  return initialTheme;
+}
+
+/**
+ * Generate theme initialization script for SSR
+ * Inject this script in your HTML head to prevent FART
+ */
+export function generateThemeScript(
+  config: {
+    storageKey?: string;
+    attribute?: string;
+    lightTokens?: ThemeTokens;
+    darkTokens?: ThemeTokens;
+  } = {}
+): string {
+  const {
+    storageKey = THEME_STORAGE_KEY,
+    attribute = THEME_ATTRIBUTE,
+    lightTokens = lightTheme,
+    darkTokens = darkTheme,
+  } = config;
+
+  return `
+(function() {
+  try {
+    var stored = localStorage.getItem('${storageKey}');
+    var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    var theme = stored || system;
+    
+    var tokens = theme === 'dark' ? ${JSON.stringify(
+      darkTokens
+    )} : ${JSON.stringify(lightTokens)};
+    var root = document.documentElement;
+    
+    // Apply tokens
+    Object.entries(tokens).forEach(function(entry) {
+      root.style.setProperty(entry[0], entry[1]);
+    });
+    
+    // Set attribute
+    root.setAttribute('${attribute}', theme);
+  } catch (e) {
+    // Fallback to light theme
+    console.warn('Theme initialization failed:', e);
+  }
+})();
+  `.trim();
+}
