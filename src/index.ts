@@ -181,7 +181,10 @@ export type {
   HydrateAllVanilaOptions,
 } from "./lib/hydration";
 
-export { injectVanilaStyles, getVanilaStyleText } from "./lib/styles/injectStyles";
+export {
+  injectVanilaStyles,
+  getVanilaStyleText,
+} from "./lib/styles/injectStyles";
 
 export {
   renderBannerMarkup,
@@ -211,3 +214,39 @@ export type {
   FileUploaderError,
   FileUploaderSize,
 } from "./lib/components/file-uploader";
+
+// Utilities (v0.3.0)
+export {
+  renderBadge,
+  renderSuccessBadge,
+  renderWarningBadge,
+  renderDangerBadge,
+  renderInfoBadge,
+  renderChip,
+  renderChips,
+  createChip,
+  renderStatusDot,
+  StatusPresets,
+  TableHelpers,
+} from "./lib/utilities";
+export type {
+  BadgeOptions,
+  BadgeVariant,
+  BadgeSize,
+  ChipOptions,
+  ChipElement,
+  StatusDotOptions,
+  StatusColor,
+} from "./lib/utilities";
+
+// Theme System (v0.3.0)
+export {
+  lightTheme,
+  darkTheme,
+  applyTheme,
+  applyThemeMode,
+  removeTheme,
+  getCurrentThemeMode,
+  toggleTheme,
+} from "./lib/theme";
+export type { ThemeMode, ThemeTokens, ThemeConfig } from "./lib/theme";

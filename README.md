@@ -12,6 +12,8 @@ Vanila Components is an SSR-first UI toolkit for vanilla JavaScript dashboards a
 
 - **SSR-first** – Every component exposes `render*Markup` and `hydrate*` helpers so you can generate HTML on the server and attach behaviour on the client.
 - **Admin-ready widgets** – Filter bars, data tables, metric cards, accordions, toasts, modals, bottom sheets, cards, input/select/date pickers, pagination, banners, and file uploaders.
+- **🆕 Utility components** _(v0.3.0)_ – Pre-styled badges, chips, status dots, and table helpers to eliminate repetitive CSS.
+- **🆕 Theme system** _(v0.3.0)_ – Built-in light/dark mode support with customizable color tokens.
 - **Accessible by default** – Focus trapping for modals, keyboard-friendly interactions, ARIA attributes, and consistent design tokens.
 - **Styling options** – Import the bundled CSS, inject at runtime, or pull the raw stylesheet string for custom pipelines.
 - **Consistent DX** – Mount helpers share optional `target`, `id`, and `className` props so you can wire components without guessing argument order.
@@ -27,7 +29,11 @@ npm install vanila-components
 ## Quick Start
 
 ```ts
-import { hydrateAllVanilaComponents, showModal, showToast } from "vanila-components";
+import {
+  hydrateAllVanilaComponents,
+  showModal,
+  showToast,
+} from "vanila-components";
 
 // 1) inject styles once + hydrate any SSR markup
 hydrateAllVanilaComponents();
@@ -366,6 +372,184 @@ const metric = createMetricCard({
 
 metric.update({ value: 14, trend: { direction: "up", label: "+16%" } });
 ```
+
+## 🆕 Utility Components (v0.3.0)
+
+Pre-built, styled components for common UI patterns. **No custom CSS required!**
+
+### Badge
+
+```ts
+import { renderBadge, TableHelpers } from "vanila-components";
+
+// Standalone usage
+const badge = renderBadge({ 
+  label: 'Active', 
+  variant: 'success', 
+  dot: true 
+});
+
+// In DataTable
+createDataTable({
+  columns: [
+    {
+      key: 'status',
+      header: 'Status',
+      ...TableHelpers.statusColumn({
+        'active': 'success',
+        'pending': 'warning',
+        'failed': 'danger',
+      })
+    }
+  ],
+  data: rows,
+});
+```
+
+**Result**: Eliminates 400+ lines of custom CSS for status badges!
+
+### Chip
+
+```ts
+import { createChip, renderChips } from "vanila-components";
+
+// Interactive chip
+const chip = createChip({
+  label: 'TypeScript',
+  value: 'ts',
+  removable: true,
+  onRemove: (value) => console.log('Removed:', value)
+});
+
+// Multiple chips
+const html = renderChips(['React', 'Vue', 'Angular'], { removable: true });
+```
+
+### Status Dot
+
+```ts
+import { renderStatusDot, StatusPresets } from "vanila-components";
+
+// Custom status
+renderStatusDot({ label: 'Online', color: 'green', pulse: true });
+
+// Quick presets
+StatusPresets.online();
+StatusPresets.busy();
+StatusPresets.away();
+```
+
+### Table Helpers
+
+Pre-configured column renderers for DataTable:
+
+```ts
+import { createDataTable, TableHelpers } from "vanila-components";
+
+createDataTable({
+  columns: [
+    {
+      key: 'status',
+      header: 'Status',
+      ...TableHelpers.statusBadgeWithDot({
+        'healthy': 'success',
+        'warning': 'warning',
+        'critical': 'danger',
+      })
+    },
+    {
+      key: 'progress',
+      header: 'Progress',
+      ...TableHelpers.progressColumn() // Visual progress bar
+    },
+    {
+      key: 'health',
+      header: 'Health',
+      ...TableHelpers.healthColumn() // Colored status dots
+    },
+    {
+      key: 'createdAt',
+      header: 'Created',
+      ...TableHelpers.dateColumn('relative') // "2h ago"
+    },
+    {
+      key: 'revenue',
+      header: 'Revenue',
+      ...TableHelpers.numberColumn({ prefix: '$', decimals: 2 })
+    },
+    {
+      key: 'tags',
+      header: 'Tags',
+      ...TableHelpers.tagsColumn() // Multiple badges
+    },
+  ],
+  data: rows,
+});
+```
+
+**Available helpers:**
+- `statusColumn()` – Status badges
+- `statusBadgeWithDot()` – Status badges with indicator dot
+- `progressColumn()` – Visual progress bars
+- `healthColumn()` – Health status dots
+- `booleanColumn()` – Checkmark/cross indicators
+- `numberColumn()` – Formatted numbers with prefix/suffix
+- `dateColumn()` – Date formatting (short/long/relative)
+- `tagsColumn()` – Multiple badges
+- `truncateColumn()` – Ellipsis for long text
+
+## 🎨 Theme System (v0.3.0)
+
+Built-in dark mode and color customization.
+
+### Quick Start
+
+```ts
+import { applyThemeMode, toggleTheme } from "vanila-components";
+
+// Apply dark mode
+applyThemeMode('dark');
+
+// Toggle theme
+document.getElementById('theme-toggle')?.addEventListener('click', () => {
+  toggleTheme();
+});
+```
+
+### Custom Colors
+
+```ts
+import { applyThemeMode } from "vanila-components";
+
+applyThemeMode('light', {
+  '--vanila-theme-primary': '#8b5cf6',    // Purple
+  '--vanila-theme-success': '#10b981',    // Custom green
+});
+```
+
+### Advanced Usage
+
+```ts
+import { applyTheme, lightTheme, darkTheme } from "vanila-components";
+
+// Full control
+const customTheme = {
+  ...darkTheme,
+  '--vanila-theme-primary': '#ff6b6b',
+  '--vanila-theme-bg': '#1a1a2e',
+};
+
+applyTheme(customTheme);
+
+// Apply to specific element (Shadow DOM support)
+applyTheme(darkTheme, shadowRoot);
+```
+
+**Supported tokens:**
+- Background: `--vanila-theme-bg`, `--vanila-theme-bg-secondary`
+- Foreground: `--vanila-theme-fg`, `--vanila-theme-fg-muted`
+- Border: `--vanila-theme-border`
+- Semantic: `--vanila-theme-primary`, `--vanila-theme-success`, `--vanila-theme-warning`, `--vanila-theme-danger`, `--vanila-theme-info`
 
 ## Scripts
 

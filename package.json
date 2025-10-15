@@ -1,6 +1,6 @@
 {
   "name": "vanila-components",
-  "version": "0.2.3",
+  "version": "0.3.1",
   "description": "SSR-first admin UI toolkit for vanilla JavaScript with server-rendered markup and client hydration.",
   "type": "module",
   "files": [
@@ -13,6 +13,18 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
+      "import": "./dist/vanila-components.es.js",
+      "require": "./dist/vanila-components.cjs",
+      "default": "./dist/vanila-components.es.js"
+    },
+    "./utilities": {
+      "types": "./dist/types/lib/utilities/index.d.ts",
+      "import": "./dist/vanila-components.es.js",
+      "require": "./dist/vanila-components.cjs",
+      "default": "./dist/vanila-components.es.js"
+    },
+    "./theme": {
+      "types": "./dist/types/lib/theme/index.d.ts",
       "import": "./dist/vanila-components.es.js",
       "require": "./dist/vanila-components.cjs",
       "default": "./dist/vanila-components.es.js"

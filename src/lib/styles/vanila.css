@@ -4,8 +4,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.4); 
-  z-index: 999; 
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
 }
 
 [hidden] {
@@ -53,7 +53,7 @@
 }
 
 .btn-primary {
-  background-color: #007aff; 
+  background-color: #007aff;
   color: white;
   font-size: 1rem;
   font-weight: 600;
@@ -134,7 +134,7 @@
   font-size: 1rem;
   font-weight: 600;
   border-radius: 8px;
-  color: #fff; 
+  color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   opacity: 0;
   transform: translateY(8px);
@@ -162,7 +162,7 @@
 }
 
 .toast.info {
-  background-color: #1a1a1a; 
+  background-color: #1a1a1a;
 }
 
 .toast-message {
@@ -180,7 +180,6 @@
   cursor: pointer;
   line-height: 1;
 }
-
 
 #accordion-wrapper {
   width: 90%;
@@ -205,7 +204,11 @@
   flex-direction: column;
   gap: 12px;
   font-family: "Pretendard", system-ui, -apple-system, "Segoe UI", sans-serif;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(248, 250, 252, 0.92) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(248, 250, 252, 0.92) 100%
+  );
   border-radius: 16px;
   padding: 16px;
   border: 1px solid rgba(148, 163, 184, 0.18);
@@ -301,7 +304,11 @@
   font-family: "Pretendard", system-ui, -apple-system, "Segoe UI", sans-serif;
   padding: 16px;
   border-radius: 18px;
-  background: linear-gradient(135deg, rgba(244, 246, 255, 0.92), rgba(255, 255, 255, 0.85));
+  background: linear-gradient(
+    135deg,
+    rgba(244, 246, 255, 0.92),
+    rgba(255, 255, 255, 0.85)
+  );
   border: 1px solid rgba(148, 163, 184, 0.2);
   box-shadow: 0 22px 36px rgba(15, 23, 42, 0.12);
 }
@@ -334,7 +341,8 @@
   font-weight: 600;
   font-size: 1rem;
   text-decoration: none;
-  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
   box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
 }
 
@@ -351,7 +359,11 @@
 }
 
 .pagination__link--active {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.95), rgba(37, 99, 235, 0.9));
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.95),
+    rgba(37, 99, 235, 0.9)
+  );
   border-color: rgba(37, 99, 235, 0.95);
   color: #fff;
   box-shadow: 0 18px 32px rgba(37, 99, 235, 0.3);
@@ -386,7 +398,11 @@
   border-radius: 16px;
   font-family: "Pretendard", system-ui, -apple-system, "Segoe UI", sans-serif;
   border: 1px solid rgba(148, 163, 184, 0.2);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.93), rgba(244, 247, 254, 0.86));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.93),
+    rgba(244, 247, 254, 0.86)
+  );
   box-shadow: 0 20px 38px rgba(15, 23, 42, 0.14);
 }
 
@@ -438,13 +454,21 @@
 }
 
 .banner__action--primary {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.95), rgba(37, 99, 235, 0.9));
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.95),
+    rgba(37, 99, 235, 0.9)
+  );
   color: #fff;
   box-shadow: 0 16px 26px rgba(37, 99, 235, 0.3);
 }
 
 .banner__action--primary:hover {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.95), rgba(29, 78, 216, 0.92));
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.95),
+    rgba(29, 78, 216, 0.92)
+  );
   transform: translateY(-1px);
 }
 
@@ -484,25 +508,41 @@
 }
 
 .banner--info {
-  background: linear-gradient(135deg, rgba(219, 234, 254, 0.6), rgba(191, 219, 254, 0.82));
+  background: linear-gradient(
+    135deg,
+    rgba(219, 234, 254, 0.6),
+    rgba(191, 219, 254, 0.82)
+  );
   color: #1d4ed8;
   border-color: rgba(96, 165, 250, 0.45);
 }
 
 .banner--success {
-  background: linear-gradient(135deg, rgba(220, 252, 231, 0.6), rgba(187, 247, 208, 0.82));
+  background: linear-gradient(
+    135deg,
+    rgba(220, 252, 231, 0.6),
+    rgba(187, 247, 208, 0.82)
+  );
   color: #15803d;
   border-color: rgba(74, 222, 128, 0.45);
 }
 
 .banner--warning {
-  background: linear-gradient(135deg, rgba(254, 243, 199, 0.65), rgba(253, 230, 138, 0.82));
+  background: linear-gradient(
+    135deg,
+    rgba(254, 243, 199, 0.65),
+    rgba(253, 230, 138, 0.82)
+  );
   color: #b45309;
   border-color: rgba(251, 191, 36, 0.45);
 }
 
 .banner--error {
-  background: linear-gradient(135deg, rgba(254, 226, 226, 0.65), rgba(252, 165, 165, 0.82));
+  background: linear-gradient(
+    135deg,
+    rgba(254, 226, 226, 0.65),
+    rgba(252, 165, 165, 0.82)
+  );
   color: #b91c1c;
   border-color: rgba(248, 113, 113, 0.45);
 }
@@ -519,7 +559,11 @@
   flex-direction: column;
   gap: 14px;
   font-family: "Pretendard", system-ui, -apple-system, "Segoe UI", sans-serif;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.94));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.92),
+    rgba(248, 250, 252, 0.94)
+  );
   padding: 20px;
   border-radius: 18px;
   border: 1px solid rgba(148, 163, 184, 0.2);
@@ -547,7 +591,8 @@
   padding: 24px;
   text-align: center;
   background: rgba(226, 232, 240, 0.25);
-  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .file-uploader__dropzone--active {
@@ -583,7 +628,11 @@
   border: none;
   border-radius: 14px;
   padding: 11px 20px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.95), rgba(37, 99, 235, 0.9));
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.95),
+    rgba(37, 99, 235, 0.9)
+  );
   color: #fff;
   font-weight: 600;
   cursor: pointer;
@@ -592,7 +641,11 @@
 }
 
 .file-uploader__button:hover:not(:disabled) {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.95), rgba(29, 78, 216, 0.92));
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.95),
+    rgba(29, 78, 216, 0.92)
+  );
   transform: translateY(-1px);
 }
 
@@ -716,7 +769,7 @@
   gap: 12px;
 }
 
-.accordion-content .accordion-content-input{
+.accordion-content .accordion-content-input {
   width: 100%;
   min-height: 80px;
   font-size: 0.95rem;
@@ -726,7 +779,7 @@
   border-radius: 8px;
   resize: vertical;
 }
-.btn-wrapper{
+.btn-wrapper {
   display: flex;
   margin-top: 12px;
   justify-content: center;
@@ -747,18 +800,18 @@
 }
 
 .save-btn:hover {
-  background-color: #005fcc; 
-  box-shadow: 0 4px 8px rgba(0, 92, 204, 0.4); 
+  background-color: #005fcc;
+  box-shadow: 0 4px 8px rgba(0, 92, 204, 0.4);
   transform: scale(1.03);
 }
 
 .save-btn:active {
-  background-color: #004bb7; 
+  background-color: #004bb7;
   transform: scale(1);
 }
 .delete-btn {
-  background-color: #f0f0f0; 
-  color: #4f4f4f; 
+  background-color: #f0f0f0;
+  color: #4f4f4f;
   font-size: 1rem;
   font-weight: 600;
   padding: 12px 16px;
@@ -767,26 +820,25 @@
   cursor: pointer;
   width: 100%;
   max-width: 150px;
-  transition: all 0.3s ease; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .delete-btn:hover {
-  background-color: #e6e6e6; 
-  color: #333333; 
-  border-color: #cccccc; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-  transform: scale(1.03); 
+  background-color: #e6e6e6;
+  color: #333333;
+  border-color: #cccccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.03);
 }
 
 .delete-btn:active {
   background-color: #dcdcdc;
-  color: #000000; 
-  border-color: #bbbbbb; 
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); 
-  transform: scale(0.97); 
+  color: #000000;
+  border-color: #bbbbbb;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transform: scale(0.97);
 }
-
 
 .accordion-content.open {
   display: block;
@@ -1222,9 +1274,9 @@
   transform: translateY(100%);
   animation: slide-up 0.3s forwards;
 }
-.bottom-sheet-header{
-    display: flex;
-    justify-content: space-between;
+.bottom-sheet-header {
+  display: flex;
+  justify-content: space-between;
 }
 
 .bottom-sheet.closing {
@@ -1290,7 +1342,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-color: #fff;
+  background-color: inherit;
 }
 
 .card:hover {
@@ -1318,8 +1370,6 @@
   justify-content: center;
   padding: 0;
 }
-
-
 
 .card-image {
   width: 100%;
@@ -1354,7 +1404,7 @@
   font-size: 1rem;
   font-weight: bold;
   text-align: center;
-  color: #fff;
+  color: inherit;
   background-color: #007aff;
   border: none;
   border-radius: 8px;
@@ -1370,4 +1420,256 @@
 .card-button:active {
   background-color: #003e99;
   transform: scale(0.98);
+}
+
+/* ========================================
+   Utilities (v0.3.0)
+   Reusable components for common patterns
+   ======================================== */
+
+/* === Badge === */
+.vanila-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.813rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  font-family: "Pretendard", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.vanila-badge--sm {
+  padding: 2px 8px;
+  font-size: 0.75rem;
+}
+
+.vanila-badge--lg {
+  padding: 6px 16px;
+  font-size: 0.875rem;
+}
+
+.vanila-badge--success {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.vanila-badge--warning {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.vanila-badge--danger {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.vanila-badge--info {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.vanila-badge--neutral {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.vanila-badge--outline {
+  background: transparent;
+  border: 1.5px solid currentColor;
+}
+
+.vanila-badge__dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.vanila-badge__label {
+  display: inline-block;
+}
+
+/* === Chip === */
+.vanila-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  font-size: 0.875rem;
+  font-family: "Pretendard", system-ui, -apple-system, "Segoe UI", sans-serif;
+  transition: background-color 0.2s ease;
+}
+
+.vanila-chip:hover {
+  background: #e2e8f0;
+}
+
+.vanila-chip__label {
+  display: inline-block;
+}
+
+.vanila-chip__remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+  order: -1;
+}
+
+.vanila-chip__remove:hover {
+  background: #cbd5e1;
+  color: #334155;
+}
+
+.vanila-chip__remove:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* === Status Dot === */
+.vanila-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-family: "Pretendard", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.vanila-status__dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.vanila-status__dot--green {
+  background: #22c55e;
+}
+
+.vanila-status__dot--yellow {
+  background: #eab308;
+}
+
+.vanila-status__dot--red {
+  background: #ef4444;
+}
+
+.vanila-status__dot--blue {
+  background: #3b82f6;
+}
+
+.vanila-status__dot--gray {
+  background: #94a3b8;
+}
+
+.vanila-status__dot--purple {
+  background: #a855f7;
+}
+
+.vanila-status__dot--orange {
+  background: #f97316;
+}
+
+.vanila-status__dot--pulse {
+  animation: vanila-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes vanila-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.vanila-status__label {
+  display: inline-block;
+}
+
+/* === Progress Bar === */
+.vanila-progress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 80px;
+  height: 24px;
+  background: #f1f5f9;
+  border-radius: 6px;
+  overflow: hidden;
+  font-family: "Pretendard", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.vanila-progress__bar {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  transition: width 0.3s ease;
+  min-width: 0;
+}
+
+.vanila-progress__text {
+  position: absolute;
+  right: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #475569;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+}
+
+/* === Theme Support (Optional) === */
+/* Users can apply CSS variables by calling applyTheme() */
+:root {
+  --vanila-theme-bg: #ffffff;
+  --vanila-theme-fg: #0f172a;
+  --vanila-theme-border: #e5e7eb;
+  --vanila-theme-primary: #2563eb;
+  --vanila-theme-success: #16a34a;
+  --vanila-theme-warning: #ea580c;
+  --vanila-theme-danger: #dc2626;
+  --vanila-theme-info: #0284c7;
+}
+
+/* Optional: Apply theme variables to badges when theme is active */
+[data-theme] .vanila-badge--success {
+  color: var(--vanila-theme-success, #15803d);
+}
+
+[data-theme] .vanila-badge--warning {
+  color: var(--vanila-theme-warning, #b45309);
+}
+
+[data-theme] .vanila-badge--danger {
+  color: var(--vanila-theme-danger, #b91c1c);
+}
+
+[data-theme] .vanila-badge--info {
+  color: var(--vanila-theme-info, #1d4ed8);
+}
+
+[data-theme] .vanila-progress__bar {
+  background: linear-gradient(
+    90deg,
+    var(--vanila-theme-primary, #3b82f6),
+    var(--vanila-theme-primary-hover, #2563eb)
+  );
 }
