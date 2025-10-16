@@ -3,18 +3,26 @@
 [![npm version](https://img.shields.io/npm/v/vanila-components.svg)](https://www.npmjs.com/package/vanila-components)
 [![npm downloads](https://img.shields.io/npm/dm/vanila-components.svg)](https://www.npmjs.com/package/vanila-components)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/vanila-components?label=bundle%20size)](https://bundlephobia.com/package/vanila-components)
+[![GitHub Stars](https://img.shields.io/github/stars/jaehyuksssss/vanila-components?style=social)](https://github.com/jaehyuksssss/vanila-components)
+[![CI](https://github.com/jaehyuksssss/vanila-components/actions/workflows/ci.yml/badge.svg)](https://github.com/jaehyuksssss/vanila-components/actions/workflows/ci.yml)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Vanila Components is an SSR-first UI toolkit for vanilla JavaScript dashboards and multi-framework sites. Render accessible markup on the server (Blade/Twig, Laravel, Razor, Go templates, Express, Next.js API routes) and hydrate behaviour on the client without adopting a SPA framework. The library ships with battle-tested admin widgets, **shadcn/ui-inspired styling**, and TypeScript definitions for predictable integrations.
+Vanila Components is an SSR-first UI toolkit for vanilla JavaScript dashboards and multi-framework sites. Render accessible markup on the server (Blade/Twig, Laravel, Razor, Go templates, Express, Next.js) and hydrate behaviour on the client without adopting a SPA framework. The library ships with battle-tested admin widgets, **shadcn/ui-inspired styling**, and TypeScript definitions for predictable integrations.
 
-**📚 [Documentation & Playground](https://docs-vanila-component.vercel.app/)** | **📦 [npm Package](https://www.npmjs.com/package/vanila-components)**
+If you find this useful, please consider starring the repository to support the project.
+
+👉 [Star on GitHub](https://github.com/jaehyuksssss/vanila-components)
+
+**📚 [Documentation & Playground](https://docs-vanila-components.vercel.app/)** | **📦 [npm Package](https://www.npmjs.com/package/vanila-components)**
 
 ## Highlights
 
 - **🎨 shadcn/ui Design** _(v0.3.1)_ – Professional, refined styling with subtle shadows, HSL colors, and perfect dark mode.
 - **SSR-first** – Every component exposes `render*Markup` and `hydrate*` helpers so you can generate HTML on the server and attach behaviour on the client.
 - **Admin-ready widgets** – Filter bars, data tables, metric cards, accordions, toasts, modals, bottom sheets, cards, input/select/date pickers, pagination, banners, and file uploaders.
-- **🆕 Utility components** _(v0.3.0)_ – Pre-styled badges, chips, status dots, and table helpers to eliminate repetitive CSS.
-- **🆕 Theme system** _(v0.3.0)_ – Built-in light/dark mode support with customizable HSL color tokens.
+- ** Utility components** _(v0.3.0)_ – Pre-styled badges, chips, status dots, and table helpers to eliminate repetitive CSS.
+- ** Theme system** _(v0.3.0)_ – Built-in light/dark mode support with customizable HSL color tokens.
 - **Accessible by default** – Focus ring states, keyboard-friendly interactions, ARIA attributes, and consistent design tokens.
 - **Styling options** – Import the bundled CSS, inject at runtime, or pull the raw stylesheet string for custom pipelines.
 - **Consistent DX** – Mount helpers share optional `target`, `id`, and `className` props so you can wire components without guessing argument order.
@@ -572,14 +580,6 @@ applyTheme(darkTheme, shadowRoot);
 3. `npm run build` to produce publishable output
 4. `npm run test:run` to make sure behaviour and hydration flows are intact
 
-## Publish
-
-```bash
-npm run build
-npm publish --dry-run
-npm publish
-```
-
 ## License
 
-Currently `UNLICENSED`. Choose an appropriate license (MIT/BSD/etc.) before publishing to npm.
+MIT

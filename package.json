@@ -1,13 +1,13 @@
 {
   "name": "vanila-components",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "SSR-first admin UI toolkit for vanilla JavaScript with server-rendered markup and client hydration.",
-  "type": "module",
   "files": [
     "dist"
   ],
   "main": "dist/vanila-components.cjs",
   "module": "dist/vanila-components.js",
+  "esnext": "dist/vanila-components.js",
   "unpkg": "dist/vanila-components.umd.js",
   "types": "dist/types/index.d.ts",
   "exports": {
@@ -17,18 +17,72 @@
       "require": "./dist/vanila-components.cjs",
       "default": "./dist/vanila-components.js"
     },
+    "./client": {
+      "types": "./dist/types/client.d.ts",
+      "import": "./dist/client.js",
+      "require": "./dist/client.cjs",
+      "default": "./dist/client.js"
+    },
+    "./server": {
+      "types": "./dist/types/server.d.ts",
+      "import": "./dist/server.js",
+      "require": "./dist/server.cjs",
+      "default": "./dist/server.js"
+    },
     "./package.json": "./package.json",
     "./utilities": {
-      "types": "./dist/types/lib/utilities/index.d.ts",
-      "import": "./dist/vanila-components.js",
-      "require": "./dist/vanila-components.cjs",
-      "default": "./dist/vanila-components.js"
+      "types": "./dist/types/utilities.d.ts",
+      "import": "./dist/utilities.js",
+      "require": "./dist/utilities.cjs",
+      "default": "./dist/utilities.js"
     },
     "./theme": {
-      "types": "./dist/types/lib/theme/index.d.ts",
-      "import": "./dist/vanila-components.js",
-      "require": "./dist/vanila-components.cjs",
-      "default": "./dist/vanila-components.js"
+      "types": "./dist/types/theme.d.ts",
+      "import": "./dist/theme.js",
+      "require": "./dist/theme.cjs",
+      "default": "./dist/theme.js"
+    },
+    "./accessibility": {
+      "types": "./dist/types/accessibility.d.ts",
+      "import": "./dist/accessibility.js",
+      "require": "./dist/accessibility.cjs",
+      "default": "./dist/accessibility.js"
+    },
+    "./components/modal": {
+      "types": "./dist/types/components/modal.d.ts",
+      "import": "./dist/components/modal.js",
+      "require": "./dist/components/modal.cjs",
+      "default": "./dist/components/modal.js"
+    },
+    "./components/accordion": {
+      "types": "./dist/types/components/accordion.d.ts",
+      "import": "./dist/components/accordion.js",
+      "require": "./dist/components/accordion.cjs",
+      "default": "./dist/components/accordion.js"
+    },
+    "./components/data-table": {
+      "types": "./dist/types/components/data-table.d.ts",
+      "import": "./dist/components/data-table.js",
+      "require": "./dist/components/data-table.cjs",
+      "default": "./dist/components/data-table.js"
+    },
+    "./components/toast": {
+      "types": "./dist/types/components/toast.d.ts",
+      "import": "./dist/components/toast.js",
+      "require": "./dist/components/toast.cjs",
+      "default": "./dist/components/toast.js"
+    },
+    "./components/bottomsheet": {
+      "types": "./dist/types/components/bottomsheet.d.ts",
+      "import": "./dist/components/bottomsheet.js",
+      "require": "./dist/components/bottomsheet.cjs",
+      "default": "./dist/components/bottomsheet.js"
+    },
+    "./security": {
+      "types": "./dist/types/security.d.ts",
+      "import": "./dist/security.js",
+      "require": "./dist/security.cjs",
+      "default": "./dist/security.js"
     },
     "./styles.css": "./dist/vanila-components.css"
   },
@@ -36,6 +90,9 @@
     "./dist/vanila-components.css"
   ],
   "browser": {
+    "./dist/vanila-components.cjs": "./dist/vanila-components.js"
+  },
+  "react-native": {
     "./dist/vanila-components.cjs": "./dist/vanila-components.js"
   },
   "scripts": {
@@ -84,7 +141,7 @@
   "bugs": {
     "url": "https://github.com/jaehyuksssss/vanila-components/issues"
   },
-  "homepage": "https://docs-vanila-component.vercel.app/",
+  "homepage": "https://docs-vanila-components.vercel.app/",
   "devDependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",

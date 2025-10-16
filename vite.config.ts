@@ -24,6 +24,7 @@ export default defineConfig({
         utilities: path.resolve(__dirname, "src/utilities.ts"),
         theme: path.resolve(__dirname, "src/theme.ts"),
         accessibility: path.resolve(__dirname, "src/accessibility.ts"),
+        security: path.resolve(__dirname, "src/security.ts"),
       },
       name: LIB_NAME,
       fileName: (format, entryName) => {

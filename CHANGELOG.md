@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.5] - 2025-10-16
+
+### Added
+- Subpath export `vanila-components/accessibility` (FocusTrap, RovingTabindex, announceToScreenReader, aria). Aligns docs with code and enables clean imports.
+- GitHub Actions CI workflow for build + test.
+
+### Changed
+- Documentation synced to actual APIs and paths:
+  - Modal options: `primaryButtonText`/`secondaryButtonText` instead of `confirmText`.
+  - DataTable column key `header` (not `label`).
+  - Accessibility imports use `vanila-components/accessibility`.
+  - Removed non-existent options (e.g., event delegation flag) from guides.
+- README: badges (Stars/CI/TS/MIT) and Star CTA added; copy clarified.
+- Homepage URL fixed in package.json.
+
+### Notes
+- Semver: patch release (no breaking changes). If you import accessibility utilities, use the new subpath.
+
 ## [0.3.2] - 2025-10-15
 
 **Complete visual redesign inspired by shadcn/ui**

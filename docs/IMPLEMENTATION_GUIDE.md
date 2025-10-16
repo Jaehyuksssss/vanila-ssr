@@ -14,7 +14,7 @@ use VanilaComponents\Server;
 {!! Server::renderModalMarkup([
     'id' => 'user-modal',
     'title' => 'User Details',
-    'content' => '<p>User information here</p>'
+    'message' => 'User information here'
 ]) !!}
 
 <!-- Client-side hydration -->
@@ -43,7 +43,7 @@ export function UserModal({
   const html = renderModalMarkup({
     id: "user-modal",
     title,
-    content,
+    message: content,
   });
 
   return <div dangerouslySetInnerHTML={{ __html: html }} />;
@@ -72,8 +72,8 @@ const { renderDataTableMarkup } = require('vanila-components/server');
 app.get('/dashboard', (req, res) => {
   const tableHtml = renderDataTableMarkup({
     columns: [
-      { key: 'name', label: 'Name' },
-      { key: 'email', label: 'Email' }
+      { key: 'name', header: 'Name' },
+      { key: 'email', header: 'Email' }
     ],
     data: users
   });
@@ -97,7 +97,7 @@ hydrateDataTable(document.getElementById('user-table'));
     var modalHtml = VanilaComponents.Server.RenderModalMarkup(new {
         id = "confirmation-modal",
         title = "Confirm Action",
-        content = "<p>Are you sure?</p>"
+        message = "Are you sure?"
     });
 }
 
@@ -116,7 +116,7 @@ hydrateModal(document.getElementById('confirmation-modal'));
 {{ vanila_modal({
     id: 'product-modal',
     title: 'Product Details',
-    content: product.description
+    message: product.description
 }) | raw }}
 
 <script type="module">
@@ -201,7 +201,7 @@ function onRouteChange(newContent) {
 
 ```javascript
 //  Good - Only imports modal code (~3KB)
-import { hydrateModal } from "vanila-components/modal";
+import { hydrateModal } from "vanila-components/components/modal";
 
 //  Avoid - Imports entire library (~50KB)
 import { hydrateModal } from "vanila-components";
@@ -222,7 +222,7 @@ import { hydrateOnVisible } from "vanila-components/client";
 hydrateOnVisible(
   "[data-vanila-component='data-table']",
   (element) => {
-    import("vanila-components/data-table").then(({ hydrateDataTable }) => {
+    import("vanila-components/components/data-table").then(({ hydrateDataTable }) => {
       hydrateDataTable(element);
     });
   },
@@ -232,16 +232,7 @@ hydrateOnVisible(
 
 ### Event Delegation
 
-```javascript
-// Automatic event delegation for better performance
-import { hydrateVanilaComponents } from "vanila-components/client";
-
-// Uses single event listener for all components
-hydrateVanilaComponents({
-  root: document.getElementById("dashboard"),
-  useEventDelegation: true, // Default: true
-});
-```
+현재 라이브러리에서 하이드레이션 옵션으로 이벤트 위임 설정(`useEventDelegation`)은 제공하지 않습니다. 필요 시 애플리케이션 레벨에서 이벤트 위임 패턴을 구현해 주세요.
 
 ## Theme System
 

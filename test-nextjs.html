@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vanila Components CSS Test</title>
+    <!-- CDN에서 CSS 로드 -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/vanila-components@0.3.4/dist/vanila-components.css"
+    />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      .test-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .test-section {
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+      }
+      .test-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      .css-check {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 10px 0;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 4px;
+      }
+      .status {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+      }
+      .status.pass {
+        background: #22c55e;
+        color: white;
+      }
+      .status.fail {
+        background: #ef4444;
+        color: white;
+      }
+      .test-button {
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="test-container">
+      <h1>🧪 Vanila Components CSS 테스트</h1>
+      <p>
+        이 페이지는 vanila-components의 CSS가 제대로 로드되는지 테스트합니다.
+      </p>
+
+      <!-- CSS 로드 확인 -->
+      <div class="test-section">
+        <div class="test-title">1. CSS 로드 확인</div>
+        <div class="css-check">
+          <div id="css-loaded" class="status">?</div>
+          <span>CSS 파일이 로드되었는지 확인</span>
+        </div>
+        <div class="css-check">
+          <div id="css-variables" class="status">?</div>
+          <span>CSS 변수 (--primary, --background 등)가 정의되었는지 확인</span>
+        </div>
+      </div>
+
+      <!-- 컴포넌트 테스트 -->
+      <div class="test-section">
+        <div class="test-title">2. 컴포넌트 스타일 테스트</div>
+
+        <!-- Badge 테스트 -->
+        <div style="margin: 10px 0">
+          <strong>Badge 컴포넌트:</strong><br />
+          <span class="vanila-badge vanila-badge--success">성공</span>
+          <span class="vanila-badge vanila-badge--warning">경고</span>
+          <span class="vanila-badge vanila-badge--danger">위험</span>
+          <span class="vanila-badge vanila-badge--info">정보</span>
+        </div>
+
+        <!-- Button 테스트 -->
+        <div style="margin: 10px 0">
+          <strong>Button 컴포넌트:</strong><br />
+          <button class="btn-primary test-button">Primary Button</button>
+          <button class="btn-secondary test-button">Secondary Button</button>
+        </div>
+
+        <!-- Modal 테스트 -->
+        <div style="margin: 10px 0">
+          <strong>Modal 컴포넌트:</strong><br />
+          <div class="modal-wrapper" style="position: relative; display: block">
+            <div class="modal">
+              <div class="modal-title">테스트 모달</div>
+              <div class="modal-message">CSS가 제대로 적용되었습니다!</div>
+              <div class="modal-actions">
+                <button class="btn-primary">확인</button>
+                <button class="btn-secondary">취소</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 테스트 -->
+        <div style="margin: 10px 0">
+          <strong>Card 컴포넌트:</strong><br />
+          <div class="card" style="max-width: 300px">
+            <div class="card-content">
+              <div class="card-title">테스트 카드</div>
+              <div class="card-description">
+                shadcn/ui 스타일이 적용되었습니다.
+              </div>
+              <button class="card-button">액션</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input 테스트 -->
+        <div style="margin: 10px 0">
+          <strong>Input 컴포넌트:</strong><br />
+          <div class="input-field">
+            <label class="input-field__label">이름</label>
+            <div class="input-field__control">
+              <input
+                class="input-field__input"
+                placeholder="이름을 입력하세요"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Status Dot 테스트 -->
+        <div style="margin: 10px 0">
+          <strong>Status Dot 컴포넌트:</strong><br />
+          <span class="vanila-status">
+            <span class="vanila-status__dot vanila-status__dot--green"></span>
+            <span class="vanila-status__label">온라인</span>
+          </span>
+          <span class="vanila-status">
+            <span class="vanila-status__dot vanila-status__dot--red"></span>
+            <span class="vanila-status__label">오프라인</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- 다크모드 테스트 -->
+      <div class="test-section">
+        <div class="test-title">3. 다크모드 테스트</div>
+        <button id="toggle-theme" class="btn-primary">다크모드 토글</button>
+        <div id="theme-status" style="margin-top: 10px"></div>
+      </div>
+
+      <!-- CSS 변수 값 확인 -->
+      <div class="test-section">
+        <div class="test-title">4. CSS 변수 값 확인</div>
+        <div
+          id="css-vars"
+          style="
+            font-family: monospace;
+            font-size: 12px;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+          "
+        ></div>
+      </div>
+    </div>
+
+    <script>
+      // CSS 로드 확인
+      function checkCSSLoaded() {
+        const cssLoaded = document.getElementById("css-loaded");
+        const cssVars = document.getElementById("css-variables");
+
+        // CSS 파일 로드 확인
+        const stylesheets = Array.from(document.styleSheets);
+        const vanilaCSS = stylesheets.find(
+          (sheet) => sheet.href && sheet.href.includes("vanila-components")
+        );
+
+        if (vanilaCSS) {
+          cssLoaded.textContent = "✓";
+          cssLoaded.className = "status pass";
+        } else {
+          cssLoaded.textContent = "✗";
+          cssLoaded.className = "status fail";
+        }
+
+        // CSS 변수 확인
+        const root = document.documentElement;
+        const computedStyle = getComputedStyle(root);
+        const primaryColor = computedStyle.getPropertyValue("--primary");
+        const backgroundColor = computedStyle.getPropertyValue("--background");
+
+        if (primaryColor && backgroundColor) {
+          cssVars.textContent = "✓";
+          cssVars.className = "status pass";
+        } else {
+          cssVars.textContent = "✗";
+          cssVars.className = "status fail";
+        }
+      }
+
+      // CSS 변수 값 표시
+      function displayCSSVars() {
+        const root = document.documentElement;
+        const computedStyle = getComputedStyle(root);
+        const vars = [
+          "--primary",
+          "--background",
+          "--foreground",
+          "--success",
+          "--warning",
+          "--danger",
+          "--border",
+          "--radius-md",
+        ];
+
+        const varDisplay = vars
+          .map((varName) => {
+            const value = computedStyle.getPropertyValue(varName);
+            return `${varName}: ${value || "NOT FOUND"}`;
+          })
+          .join("<br>");
+
+        document.getElementById("css-vars").innerHTML = varDisplay;
+      }
+
+      // 다크모드 토글
+      function toggleTheme() {
+        const root = document.documentElement;
+        const currentTheme = root.getAttribute("data-vanila-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+        root.setAttribute("data-vanila-theme", newTheme);
+        document.getElementById(
+          "theme-status"
+        ).textContent = `현재 테마: ${newTheme}`;
+
+        // CSS 변수 다시 표시
+        setTimeout(displayCSSVars, 100);
+      }
+
+      // 페이지 로드 시 실행
+      document.addEventListener("DOMContentLoaded", function () {
+        checkCSSLoaded();
+        displayCSSVars();
+
+        document
+          .getElementById("toggle-theme")
+          .addEventListener("click", toggleTheme);
+
+        // 초기 테마 상태 표시
+        const root = document.documentElement;
+        const currentTheme = root.getAttribute("data-vanila-theme") || "light";
+        document.getElementById(
+          "theme-status"
+        ).textContent = `현재 테마: ${currentTheme}`;
+      });
+
+      // 에러 처리
+      window.addEventListener("error", function (e) {
+        console.error("CSS 로드 에러:", e);
+        document.getElementById("css-loaded").textContent = "✗";
+        document.getElementById("css-loaded").className = "status fail";
+      });
+    </script>
+  </body>
+</html>
+

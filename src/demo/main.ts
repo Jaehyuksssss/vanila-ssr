@@ -287,34 +287,36 @@ const runFilters = () => {
 };
 
 const applyFilters = (values: Record<string, unknown>): ProjectRecord[] => {
-  const queryRaw = values.query ?? "";
-  const statusRaw = values.status ?? "";
-  const ownerRaw = values.owner ?? "";
+  const getFilterValue = (value: unknown): string => {
+    if (Array.isArray(value)) {
+      return String(value[0] ?? "").trim();
+    }
+    return String(value ?? "").trim();
+  };
 
-  const query = String(queryRaw).trim().toLowerCase();
-  const status = Array.isArray(statusRaw)
-    ? String(statusRaw[0] ?? "")
-    : String(statusRaw);
-  const owner = Array.isArray(ownerRaw)
-    ? String(ownerRaw[0] ?? "")
-    : String(ownerRaw);
+  const query = getFilterValue(values.query).toLowerCase();
+  const status = getFilterValue(values.status);
+  const owner = getFilterValue(values.owner);
 
   return projects.filter((project) => {
-    const matchesQuery =
+    const matchQuery = () =>
       !query ||
-      project.name.toLowerCase().includes(query) ||
-      project.owner.toLowerCase().includes(query) ||
-      project.status.toLowerCase().includes(query);
-    const matchesStatus = !status || project.status === status;
-    const matchesOwner = !owner || project.owner === owner;
-    const meetsMinimumProgress = project.progress >= minimumProgress;
-    const matchesQuickStatus = !quickStatus || project.status === quickStatus;
+      [project.name, project.owner, project.status].some((field) =>
+        field.toLowerCase().includes(query)
+      );
+
+    const matchStatus = () => !status || project.status === status;
+    const matchOwner = () => !owner || project.owner === owner;
+    const meetMinimumProgress = () => project.progress >= minimumProgress;
+    const matchQuickStatus = () =>
+      !quickStatus || project.status === quickStatus;
+
     return (
-      matchesQuery &&
-      matchesStatus &&
-      matchesOwner &&
-      meetsMinimumProgress &&
-      matchesQuickStatus
+      matchQuery() &&
+      matchStatus() &&
+      matchOwner() &&
+      meetMinimumProgress() &&
+      matchQuickStatus()
     );
   });
 };

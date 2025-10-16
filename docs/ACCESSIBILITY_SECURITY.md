@@ -7,7 +7,7 @@
 #### Modal Components
 
 ```javascript
-import { hydrateModal } from "vanila-components/modal";
+import { hydrateModal } from "vanila-components/components/modal";
 
 hydrateModal(document.getElementById("my-modal"), {
   // Automatic ARIA attributes applied:
@@ -21,14 +21,13 @@ hydrateModal(document.getElementById("my-modal"), {
 #### Data Tables
 
 ```javascript
-import { hydrateDataTable } from "vanila-components/data-table";
+import { hydrateDataTable } from "vanila-components/components/data-table";
 
 hydrateDataTable(document.getElementById("my-table"), {
-  // Automatic ARIA attributes:
-  // role="table"
-  // aria-label="Data table"
-  // aria-sort for sortable columns
-  // aria-rowcount, aria-colcount
+  // 동작 개요:
+  // - 네이티브 <table> 시맨틱 사용
+  // - 정렬 시 해당 헤더 셀에 aria-sort 적용
+  // - 기타 테이블 ARIA 속성은 자동 설정하지 않음
 });
 ```
 
@@ -111,7 +110,7 @@ announceToScreenReader("Error: Please check your input", "assertive");
 
 ```javascript
 // Using axe-core
-import { hydrateModal } from "vanila-components/modal";
+import { hydrateModal } from "vanila-components/components/modal";
 import axe from "axe-core";
 
 const modal = hydrateModal(document.getElementById("test-modal"));
@@ -137,15 +136,16 @@ axe.run(modal.element).then((results) => {
 #### Safe HTML Rendering
 
 ```javascript
-// ✅ Safe - Uses built-in sanitization
+// ✅ Safe - Sanitize user-provided strings before rendering
 import { renderModalMarkup } from "vanila-components/server";
+import { sanitizeHtml } from "vanila-components/security";
 
 const safeHtml = renderModalMarkup({
-  title: userInput, // Automatically escaped
-  content: userContent, // Automatically escaped
+  title: sanitizeHtml(userInput),
+  content: sanitizeHtml(userContent),
 });
 
-// Dangerous - Raw HTML injection
+// Dangerous - Raw HTML injection (do not do this)
 const dangerousHtml = `<div>${userInput}</div>`;
 ```
 
@@ -182,7 +182,7 @@ const cleanContent = sanitizeHtml(userInput, {
 
 ```javascript
 // Good - No eval() or new Function()
-import { hydrateModal } from "vanila-components/modal";
+import { hydrateModal } from "vanila-components/components/modal";
 
 //  Avoided - No dynamic code execution
 // eval('hydrateModal(element)'); // Never used in library
@@ -196,16 +196,14 @@ import { hydrateModal } from "vanila-components/modal";
 import { hydrateAllVanilaComponents } from "vanila-components/client";
 
 hydrateAllVanilaComponents({
-  debug: process.env.NODE_ENV === "development", // Only in dev
-  allowUnsafeHtml: false, // Always false in production
-  validateProps: true, // Enable prop validation
+  debug: process.env.NODE_ENV === "development",
 });
 ```
 
 #### Input Validation
 
 ```javascript
-import { createDataTable } from "vanila-components/data-table";
+import { createDataTable } from "vanila-components/components/data-table";
 
 createDataTable(element, {
   data: validateTableData(userData), // Validate before use
