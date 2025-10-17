@@ -268,7 +268,7 @@ applyThemeMode("dark");
 
 ### 🔗 Links
 
-- [Documentation & Playground](https://docs-vanila-component.vercel.app/)
+- [Documentation & Playground](https://docs-vanilla-ssr.vercel.app/)
 - [npm Package](https://www.npmjs.com/package/vanila-components)
 - [GitHub Repository](https://github.com/jaehyuksssss/vanila-components)
 

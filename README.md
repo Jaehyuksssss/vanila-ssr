@@ -14,7 +14,7 @@ If you find this useful, please consider starring the repository to support the 
 
 👉 [Star on GitHub](https://github.com/jaehyuksssss/vanila-components)
 
-**📚 [Documentation & Playground](https://docs-vanila-components.vercel.app/)** | **📦 [npm Package](https://www.npmjs.com/package/vanilla-ssr)**
+**📚 [Documentation & Playground](https://docs-vanilla-ssr.vercel.app/)** | **📦 [npm Package](https://www.npmjs.com/package/vanilla-ssr)**
 
 > 패키지명이 `vanila-components`에서 `vanilla-ssr`로 변경되었습니다. 기존 프로젝트는 임포트 경로만 바꾸면 동작합니다. 자세한 내용은 `MIGRATION.md`를 참고하세요.
 

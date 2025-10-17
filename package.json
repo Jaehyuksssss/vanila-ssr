@@ -1,6 +1,6 @@
 {
   "name": "vanilla-ssr",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "SSR-first admin UI toolkit for vanilla JavaScript with server-rendered markup and client hydration.",
   "files": [
     "dist"
@@ -145,7 +145,7 @@
   "bugs": {
     "url": "https://github.com/jaehyuksssss/vanila-components/issues"
   },
-  "homepage": "https://docs-vanila-components.vercel.app/",
+  "homepage": "https://docs-vanilla-ssr.vercel.app/",
   "devDependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
