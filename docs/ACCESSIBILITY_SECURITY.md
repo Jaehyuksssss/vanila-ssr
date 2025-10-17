@@ -7,7 +7,7 @@
 #### Modal Components
 
 ```javascript
-import { hydrateModal } from "vanila-components/components/modal";
+import { hydrateModal } from "vanilla-ssr/components/modal";
 
 hydrateModal(document.getElementById("my-modal"), {
   // Automatic ARIA attributes applied:
@@ -21,7 +21,7 @@ hydrateModal(document.getElementById("my-modal"), {
 #### Data Tables
 
 ```javascript
-import { hydrateDataTable } from "vanila-components/components/data-table";
+import { hydrateDataTable } from "vanilla-ssr/components/data-table";
 
 hydrateDataTable(document.getElementById("my-table"), {
   // 동작 개요:
@@ -36,7 +36,7 @@ hydrateDataTable(document.getElementById("my-table"), {
 #### Focus Trap (Modals, Dialogs)
 
 ```javascript
-import { createFocusTrap } from "vanila-components/accessibility";
+import { createFocusTrap } from "vanilla-ssr/accessibility";
 
 const focusTrap = createFocusTrap(modalElement, {
   initialFocus: "#first-input",
@@ -50,7 +50,7 @@ focusTrap.activate();
 #### Roving Tabindex (Lists, Menus)
 
 ```javascript
-import { RovingTabindex } from "vanila-components/accessibility";
+import { RovingTabindex } from "vanilla-ssr/accessibility";
 
 const roving = new RovingTabindex(
   document.getElementById("menu"),
@@ -82,7 +82,7 @@ const roving = new RovingTabindex(
 #### Announcements
 
 ```javascript
-import { announceToScreenReader } from "vanila-components/accessibility";
+import { announceToScreenReader } from "vanilla-ssr/accessibility";
 
 // Announce status changes
 announceToScreenReader("Data loaded successfully", "polite");
@@ -110,7 +110,7 @@ announceToScreenReader("Error: Please check your input", "assertive");
 
 ```javascript
 // Using axe-core
-import { hydrateModal } from "vanila-components/components/modal";
+import { hydrateModal } from "vanilla-ssr/components/modal";
 import axe from "axe-core";
 
 const modal = hydrateModal(document.getElementById("test-modal"));
@@ -137,8 +137,8 @@ axe.run(modal.element).then((results) => {
 
 ```javascript
 // ✅ Safe - Sanitize user-provided strings before rendering
-import { renderModalMarkup } from "vanila-components/server";
-import { sanitizeHtml } from "vanila-components/security";
+import { renderModalMarkup } from "vanilla-ssr/server";
+import { sanitizeHtml } from "vanilla-ssr/security";
 
 const safeHtml = renderModalMarkup({
   title: sanitizeHtml(userInput),
@@ -152,7 +152,7 @@ const dangerousHtml = `<div>${userInput}</div>`;
 #### Content Sanitization
 
 ```javascript
-import { sanitizeHtml } from "vanila-components/security";
+import { sanitizeHtml } from "vanilla-ssr/security";
 
 // Sanitize user-generated content
 const cleanContent = sanitizeHtml(userInput, {
@@ -173,7 +173,7 @@ const cleanContent = sanitizeHtml(userInput, {
 />
 
 <script nonce="abc123" type="module">
-  import { hydrateAllVanilaComponents } from "vanila-components/client";
+  import { hydrateAllVanilaComponents } from "vanilla-ssr/client";
   hydrateAllVanilaComponents();
 </script>
 ```
@@ -182,7 +182,7 @@ const cleanContent = sanitizeHtml(userInput, {
 
 ```javascript
 // Good - No eval() or new Function()
-import { hydrateModal } from "vanila-components/components/modal";
+import { hydrateModal } from "vanilla-ssr/components/modal";
 
 //  Avoided - No dynamic code execution
 // eval('hydrateModal(element)'); // Never used in library
@@ -193,7 +193,7 @@ import { hydrateModal } from "vanila-components/components/modal";
 #### Environment-Specific Settings
 
 ```javascript
-import { hydrateAllVanilaComponents } from "vanila-components/client";
+import { hydrateAllVanilaComponents } from "vanilla-ssr/client";
 
 hydrateAllVanilaComponents({
   debug: process.env.NODE_ENV === "development",
@@ -203,7 +203,7 @@ hydrateAllVanilaComponents({
 #### Input Validation
 
 ```javascript
-import { createDataTable } from "vanila-components/components/data-table";
+import { createDataTable } from "vanilla-ssr/components/data-table";
 
 createDataTable(element, {
   data: validateTableData(userData), // Validate before use
@@ -237,7 +237,7 @@ If you discover a security vulnerability, please:
 
 ### Security Headers
 
-Recommended security headers when serving Vanila Components:
+Recommended security headers when serving Vanilla Components:
 
 ```
 Content-Security-Policy: script-src 'self' 'nonce-{random}'; style-src 'self' 'nonce-{random}';

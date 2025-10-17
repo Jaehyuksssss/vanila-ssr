@@ -5,7 +5,7 @@
  * @example
  * ```typescript
  * // In server-side template (e.g., Laravel Blade, Express, Next.js)
- * import { renderModalMarkup, renderDataTableMarkup } from 'vanila-components/server';
+ * import { renderModalMarkup, renderDataTableMarkup } from 'vanilla-ssr/server';
  *
  * const html = renderModalMarkup({ title: 'Hello', message: 'World' });
  * ```

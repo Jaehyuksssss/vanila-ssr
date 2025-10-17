@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanila Components CSS Test</title>
+    <title>Vanilla SSR CSS Test</title>
     <!-- CDN에서 CSS 로드 -->
     <link
       rel="stylesheet"
-      href="https://unpkg.com/vanila-components@0.3.4/dist/vanila-components.css"
+      href="https://unpkg.com/vanilla-ssr@0.3.4/dist/vanilla-ssr.css"
     />
     <style>
       body {
@@ -71,9 +71,9 @@
   </head>
   <body>
     <div class="test-container">
-      <h1>🧪 Vanila Components CSS 테스트</h1>
+      <h1>🧪 Vanilla SSR CSS 테스트</h1>
       <p>
-        이 페이지는 vanila-components의 CSS가 제대로 로드되는지 테스트합니다.
+        이 페이지는 vanilla-ssr의 CSS가 제대로 로드되는지 테스트합니다.
       </p>
 
       <!-- CSS 로드 확인 -->
@@ -198,7 +198,7 @@
         // CSS 파일 로드 확인
         const stylesheets = Array.from(document.styleSheets);
         const vanilaCSS = stylesheets.find(
-          (sheet) => sheet.href && sheet.href.includes("vanila-components")
+          (sheet) => sheet.href && sheet.href.includes("vanilla-ssr")
         );
 
         if (vanilaCSS) {
@@ -290,4 +290,3 @@
     </script>
   </body>
 </html>
-

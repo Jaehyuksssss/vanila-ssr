@@ -3,7 +3,7 @@
 ## 설치
 
 ```bash
-npm install vanila-components@latest
+npm install vanilla-ssr@latest
 ```
 
 ## 기본 사용법
@@ -13,7 +13,7 @@ npm install vanila-components@latest
 **pages/\_app.js** (Pages Router):
 
 ```javascript
-import "vanila-components/styles.css";
+import "vanilla-ssr/styles.css";
 
 export default function App({ Component, pageProps }) {
   return <Component {...pageProps} />;
@@ -23,7 +23,7 @@ export default function App({ Component, pageProps }) {
 **app/layout.js** (App Router):
 
 ```javascript
-import "vanila-components/styles.css";
+import "vanilla-ssr/styles.css";
 
 export default function RootLayout({ children }) {
   return (
@@ -39,7 +39,7 @@ export default function RootLayout({ children }) {
 **서버 사이드 렌더링**:
 
 ```javascript
-import { renderModalMarkup, renderBadge } from "vanila-components";
+import { renderModalMarkup, renderBadge } from "vanilla-ssr";
 
 export default function HomePage() {
   return (
@@ -72,8 +72,8 @@ export default function HomePage() {
 
 ```javascript
 import { useEffect } from "react";
-import { hydrateVanilaComponents } from "vanila-components/client";
-import { renderBadge } from "vanila-components";
+import { hydrateVanilaComponents } from "vanilla-ssr/client";
+import { renderBadge } from "vanilla-ssr";
 
 export default function InteractivePage() {
   useEffect(() => {
@@ -95,7 +95,7 @@ export default function InteractivePage() {
 ### 3. 테마 시스템
 
 ```javascript
-import { applyThemeMode, initializeTheme } from "vanila-components/theme";
+import { applyThemeMode, initializeTheme } from "vanilla-ssr/theme";
 
 // 앱 시작 시 테마 초기화
 useEffect(() => {
@@ -135,9 +135,9 @@ module.exports = nextConfig;
 ## TypeScript 지원
 
 ```typescript
-import type { ModalOptions } from "vanila-components/components/modal";
-import type { BadgeOptions } from "vanila-components/utilities";
-import type { ThemeMode } from "vanila-components/theme";
+import type { ModalOptions } from "vanilla-ssr/components/modal";
+import type { BadgeOptions } from "vanilla-ssr/utilities";
+import type { ThemeMode } from "vanilla-ssr/theme";
 
 const modalOptions: ModalOptions = {
   title: "타입 안전",
@@ -149,12 +149,12 @@ const modalOptions: ModalOptions = {
 
 ### CSS가 로드되지 않는 경우
 
-1. `vanila-components/styles.css` 임포트 확인
+1. `vanilla-ssr/styles.css` 임포트 확인
 2. Next.js 버전이 12.0+ 인지 확인
 
 ### 모듈을 찾을 수 없는 경우
 
-1. `npm install vanila-components@latest` 재실행
+1. `npm install vanilla-ssr@latest` 재실행
 2. `node_modules` 삭제 후 재설치
 
 ### 하이드레이션이 작동하지 않는 경우

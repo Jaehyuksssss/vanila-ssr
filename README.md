@@ -1,20 +1,22 @@
-# Vanila Components
+# Vanilla SSR (npm: vanilla-ssr)
 
-[![npm version](https://img.shields.io/npm/v/vanila-components.svg)](https://www.npmjs.com/package/vanila-components)
-[![npm downloads](https://img.shields.io/npm/dm/vanila-components.svg)](https://www.npmjs.com/package/vanila-components)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/vanila-components?label=bundle%20size)](https://bundlephobia.com/package/vanila-components)
+[![npm version](https://img.shields.io/npm/v/vanilla-ssr.svg)](https://www.npmjs.com/package/vanilla-ssr)
+[![npm downloads](https://img.shields.io/npm/dm/vanilla-ssr.svg)](https://www.npmjs.com/package/vanilla-ssr)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/vanilla-ssr?label=bundle%20size)](https://bundlephobia.com/package/vanilla-ssr)
 [![GitHub Stars](https://img.shields.io/github/stars/jaehyuksssss/vanila-components?style=social)](https://github.com/jaehyuksssss/vanila-components)
 [![CI](https://github.com/jaehyuksssss/vanila-components/actions/workflows/ci.yml/badge.svg)](https://github.com/jaehyuksssss/vanila-components/actions/workflows/ci.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Vanila Components is an SSR-first UI toolkit for vanilla JavaScript dashboards and multi-framework sites. Render accessible markup on the server (Blade/Twig, Laravel, Razor, Go templates, Express, Next.js) and hydrate behaviour on the client without adopting a SPA framework. The library ships with battle-tested admin widgets, **shadcn/ui-inspired styling**, and TypeScript definitions for predictable integrations.
+Vanilla Components is an SSR-first UI toolkit for vanilla JavaScript dashboards and multi-framework sites. Render accessible markup on the server (Blade/Twig, Laravel, Razor, Go templates, Express, Next.js) and hydrate behaviour on the client without adopting a SPA framework. The library ships with battle-tested admin widgets, **shadcn/ui-inspired styling**, and TypeScript definitions for predictable integrations.
 
 If you find this useful, please consider starring the repository to support the project.
 
 👉 [Star on GitHub](https://github.com/jaehyuksssss/vanila-components)
 
-**📚 [Documentation & Playground](https://docs-vanila-components.vercel.app/)** | **📦 [npm Package](https://www.npmjs.com/package/vanila-components)**
+**📚 [Documentation & Playground](https://docs-vanila-components.vercel.app/)** | **📦 [npm Package](https://www.npmjs.com/package/vanilla-ssr)**
+
+> 패키지명이 `vanila-components`에서 `vanilla-ssr`로 변경되었습니다. 기존 프로젝트는 임포트 경로만 바꾸면 동작합니다. 자세한 내용은 `MIGRATION.md`를 참고하세요.
 
 ## Highlights
 
@@ -32,7 +34,7 @@ If you find this useful, please consider starring the repository to support the 
 ## Installation
 
 ```bash
-npm install vanila-components
+npm install vanilla-ssr
 ```
 
 ## Quick Start
@@ -42,14 +44,14 @@ import {
   hydrateAllVanilaComponents,
   showModal,
   showToast,
-} from "vanila-components";
+} from "vanilla-ssr";
 
 // 1) inject styles once + hydrate any SSR markup
 hydrateAllVanilaComponents();
 
 showModal({
   title: "Welcome",
-  message: "Vanila Components ready",
+  message: "Vanilla Components ready",
   primaryButtonText: "Close",
 });
 
@@ -63,7 +65,7 @@ showToast({
 
 ### How it fits into your stack
 
-1. `npm install vanila-components`
+1. `npm install vanilla-ssr`
 2. Import the CSS bundle, call `hydrateAllVanilaComponents()` for auto-injection, or use `injectVanilaStyles()` (Shadow DOM compatible)
 3. Server-side: generate HTML via `render*Markup()` helpers
 4. Client-side: call the matching `hydrate*()` or `hydrateVanilaComponents()` to attach events
@@ -84,7 +86,7 @@ These props are fully typed and produce descriptive runtime errors when misused.
 
 ```ts
 // Server (Razor/PHP/Go/etc.)
-import { renderInputFieldMarkup } from "vanila-components";
+import { renderInputFieldMarkup } from "vanilla-ssr";
 
 const markup = renderInputFieldMarkup({
   name: "project",
@@ -94,7 +96,7 @@ const markup = renderInputFieldMarkup({
 // -> render markup string inside your template
 
 // Client
-import { injectVanilaStyles, hydrateInputField } from "vanila-components";
+import { injectVanilaStyles, hydrateInputField } from "vanilla-ssr";
 
 injectVanilaStyles();
 document
@@ -110,10 +112,10 @@ document
 
 ```ts
 // Option 1: bundler import
-import "vanila-components/styles.css";
+import "vanilla-ssr/styles.css";
 
 // Option 2: runtime injection
-import { injectVanilaStyles } from "vanila-components";
+import { injectVanilaStyles } from "vanilla-ssr";
 
 injectVanilaStyles();
 ```
@@ -125,7 +127,7 @@ Below are concise usage examples. Visit the docs (`npm run docs:dev`) for live p
 ### Modal
 
 ```ts
-import { showModal } from "vanila-components";
+import { showModal } from "vanilla-ssr";
 
 showModal({
   id: "confirm-delete-modal",
@@ -143,7 +145,7 @@ showModal({
 ### Toast
 
 ```ts
-import { showToast } from "vanila-components";
+import { showToast } from "vanilla-ssr";
 
 showToast({
   message: "Saved successfully",
@@ -157,7 +159,7 @@ showToast({
 ### Accordion (custom delete flow)
 
 ```ts
-import { createAccordion } from "vanila-components";
+import { createAccordion } from "vanilla-ssr";
 
 const accordion = createAccordion({
   title: "FAQ",
@@ -172,7 +174,7 @@ document.getElementById("accordion-wrapper")?.append(accordion);
 ### Bottom Sheet
 
 ```ts
-import { showBottomSheet } from "vanila-components";
+import { showBottomSheet } from "vanilla-ssr";
 
 showBottomSheet({
   id: "filters-bottom-sheet",
@@ -188,7 +190,7 @@ showBottomSheet({
 ### Card
 
 ```ts
-import { renderCards, bindCardClickEvents } from "vanila-components";
+import { renderCards, bindCardClickEvents } from "vanilla-ssr";
 
 renderCards({
   container: "#card-container",
@@ -211,7 +213,7 @@ bindCardClickEvents("#card-container", (title) => {
 ### Input Field
 
 ```ts
-import { createInputField } from "vanila-components";
+import { createInputField } from "vanilla-ssr";
 
 const field = createInputField({
   name: "project-name",
@@ -228,7 +230,7 @@ field.setError("Required field");
 ### Select Field
 
 ```ts
-import { createSelectField } from "vanila-components";
+import { createSelectField } from "vanilla-ssr";
 
 const select = createSelectField({
   name: "status",
@@ -248,7 +250,7 @@ select.setValue("progress");
 ### Filter Bar
 
 ```ts
-import { createFilterBar } from "vanila-components";
+import { createFilterBar } from "vanilla-ssr";
 
 const filterBar = createFilterBar({
   fields: [
@@ -278,7 +280,7 @@ const filterBar = createFilterBar({
 ### Date & Time Picker
 
 ```ts
-import { createDatePicker } from "vanila-components";
+import { createDatePicker } from "vanilla-ssr";
 
 const createdRange = createDatePicker({
   mode: "date-range",
@@ -298,7 +300,7 @@ document.body.append(createdRange);
 ### Pagination
 
 ```ts
-import { createPagination } from "vanila-components";
+import { createPagination } from "vanilla-ssr";
 
 const pagination = createPagination({
   totalPages: 12,
@@ -314,7 +316,7 @@ document.body.append(pagination);
 ### Banner
 
 ```ts
-import { createBanner } from "vanila-components";
+import { createBanner } from "vanilla-ssr";
 
 const banner = createBanner({
   message: "새로운 버전이 배포되었습니다.",
@@ -330,7 +332,7 @@ document.body.prepend(banner);
 ### File Uploader
 
 ```ts
-import { createFileUploader } from "vanila-components";
+import { createFileUploader } from "vanilla-ssr";
 
 const uploader = createFileUploader({
   name: "attachments",
@@ -346,7 +348,7 @@ document.body.append(uploader);
 ### Data Table
 
 ```ts
-import { createDataTable } from "vanila-components";
+import { createDataTable } from "vanilla-ssr";
 
 const table = createDataTable({
   columns: [
@@ -369,7 +371,7 @@ const table = createDataTable({
 ### Metric Card
 
 ```ts
-import { createMetricCard } from "vanila-components";
+import { createMetricCard } from "vanilla-ssr";
 
 const metric = createMetricCard({
   label: "Active projects",
@@ -389,7 +391,7 @@ Pre-built, styled components for common UI patterns. **No custom CSS required!**
 ### Badge
 
 ```ts
-import { renderBadge, TableHelpers } from "vanila-components";
+import { renderBadge, TableHelpers } from "vanilla-ssr";
 
 // Standalone usage
 const badge = renderBadge({
@@ -420,7 +422,7 @@ createDataTable({
 ### Chip
 
 ```ts
-import { createChip, renderChips } from "vanila-components";
+import { createChip, renderChips } from "vanilla-ssr";
 
 // Interactive chip
 const chip = createChip({
@@ -437,7 +439,7 @@ const html = renderChips(["React", "Vue", "Angular"], { removable: true });
 ### Status Dot
 
 ```ts
-import { renderStatusDot, StatusPresets } from "vanila-components";
+import { renderStatusDot, StatusPresets } from "vanilla-ssr";
 
 // Custom status
 renderStatusDot({ label: "Online", color: "green", pulse: true });
@@ -453,7 +455,7 @@ StatusPresets.away();
 Pre-configured column renderers for DataTable:
 
 ```ts
-import { createDataTable, TableHelpers } from "vanila-components";
+import { createDataTable, TableHelpers } from "vanilla-ssr";
 
 createDataTable({
   columns: [
@@ -515,7 +517,7 @@ Built-in dark mode and color customization.
 ### Quick Start
 
 ```ts
-import { applyThemeMode, toggleTheme } from "vanila-components";
+import { applyThemeMode, toggleTheme } from "vanilla-ssr";
 
 // Apply dark mode
 applyThemeMode("dark");
@@ -529,7 +531,7 @@ document.getElementById("theme-toggle")?.addEventListener("click", () => {
 ### Custom Colors
 
 ```ts
-import { applyThemeMode } from "vanila-components";
+import { applyThemeMode } from "vanilla-ssr";
 
 applyThemeMode("light", {
   "--vanila-theme-primary": "#8b5cf6", // Purple
@@ -540,7 +542,7 @@ applyThemeMode("light", {
 ### Advanced Usage
 
 ```ts
-import { applyTheme, lightTheme, darkTheme } from "vanila-components";
+import { applyTheme, lightTheme, darkTheme } from "vanilla-ssr";
 
 // Full control
 const customTheme = {

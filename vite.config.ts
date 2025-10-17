@@ -1,8 +1,8 @@
 import path from "node:path";
 import { defineConfig } from "vite";
 
-const LIB_NAME = "VanilaComponents";
-const CSS_BUNDLE_NAME = "vanila-components.css";
+const LIB_NAME = "VanillaSSR";
+const CSS_BUNDLE_NAME = "vanilla-ssr.css";
 
 export default defineConfig({
   build: {
@@ -32,7 +32,7 @@ export default defineConfig({
         
         // Main bundles keep original naming
         if (entryName === "index") {
-          return `vanila-components.${extension}`;
+          return `vanilla-ssr.${extension}`;
         }
         
         return `${entryName}.${extension}`;

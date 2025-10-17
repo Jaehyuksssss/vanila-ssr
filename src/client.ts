@@ -5,7 +5,7 @@
  * @example
  * ```typescript
  * // In client-side JavaScript
- * import { hydrateModal, hydrateDataTable } from 'vanila-components/client';
+ * import { hydrateModal, hydrateDataTable } from 'vanilla-ssr/client';
  *
  * hydrateModal(document.getElementById('my-modal'), {
  *   onClose: () => console.log('closed')

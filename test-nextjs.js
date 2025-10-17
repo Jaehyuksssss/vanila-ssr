@@ -1,5 +1,5 @@
 /**
- * Next.js에서 vanila-components CSS 테스트
+ * Next.js에서 vanilla-ssr CSS 테스트
  * 이 파일을 Next.js 프로젝트에서 실행하여 CSS 로드 상태를 확인합니다.
  */
 
@@ -7,7 +7,7 @@
 export default function CSSTestPage() {
   return (
     <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
-      <h1>🧪 Vanila Components CSS 테스트</h1>
+      <h1> Vanilla SSR CSS 테스트</h1>
 
       {/* CSS 로드 상태 확인 */}
       <div
@@ -181,7 +181,7 @@ export function runCSSTest() {
     // CSS 파일 로드 확인
     const stylesheets = Array.from(document.styleSheets);
     const vanilaCSS = stylesheets.find(
-      (sheet) => sheet.href && sheet.href.includes("vanila-components")
+      (sheet) => sheet.href && sheet.href.includes("vanilla-ssr")
     );
 
     // CSS 변수 확인
@@ -276,7 +276,7 @@ export function useCSSTest() {
     // CSS 로드 확인
     const stylesheets = Array.from(document.styleSheets);
     const vanilaCSS = stylesheets.find(
-      (sheet) => sheet.href && sheet.href.includes("vanila-components")
+      (sheet) => sheet.href && sheet.href.includes("vanilla-ssr")
     );
 
     // CSS 변수 확인
@@ -309,4 +309,3 @@ export function useCSSTest() {
 
   return { cssLoaded, cssVars };
 }
-

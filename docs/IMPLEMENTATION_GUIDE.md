@@ -1,4 +1,4 @@
-# Vanila Components - Implementation Guide
+# Vanilla Components - Implementation Guide
 
 ## Quick Start (5-Minute Guide)
 
@@ -19,7 +19,7 @@ use VanilaComponents\Server;
 
 <!-- Client-side hydration -->
 <script type="module">
-import { hydrateModal } from 'vanila-components/client';
+import { hydrateModal } from 'vanilla-ssr/client';
 
 hydrateModal(document.getElementById('user-modal'), {
     onClose: () => console.log('Modal closed')
@@ -31,7 +31,7 @@ hydrateModal(document.getElementById('user-modal'), {
 
 ```tsx
 // app/components/UserModal.tsx
-import { renderModalMarkup } from "vanila-components/server";
+import { renderModalMarkup } from "vanilla-ssr/server";
 
 export function UserModal({
   title,
@@ -52,7 +52,7 @@ export function UserModal({
 // app/components/ClientHydration.tsx
 ("use client");
 import { useEffect } from "react";
-import { hydrateModal } from "vanila-components/client";
+import { hydrateModal } from "vanilla-ssr/client";
 
 export function ClientHydration() {
   useEffect(() => {
@@ -67,7 +67,7 @@ export function ClientHydration() {
 
 ```javascript
 // routes/dashboard.js
-const { renderDataTableMarkup } = require('vanila-components/server');
+const { renderDataTableMarkup } = require('vanilla-ssr/server');
 
 app.get('/dashboard', (req, res) => {
   const tableHtml = renderDataTableMarkup({
@@ -85,7 +85,7 @@ app.get('/dashboard', (req, res) => {
 <div id="user-table">{{{tableHtml}}}</div>
 
 <script type="module">
-import { hydrateDataTable } from 'vanila-components/client';
+import { hydrateDataTable } from 'vanilla-ssr/client';
 hydrateDataTable(document.getElementById('user-table'));
 </script>
 ```
@@ -104,7 +104,7 @@ hydrateDataTable(document.getElementById('user-table'));
 @Html.Raw(modalHtml)
 
 <script type="module">
-import { hydrateModal } from 'vanila-components/client';
+import { hydrateModal } from 'vanilla-ssr/client';
 hydrateModal(document.getElementById('confirmation-modal'));
 </script>
 ```
@@ -120,7 +120,7 @@ hydrateModal(document.getElementById('confirmation-modal'));
 }) | raw }}
 
 <script type="module">
-import { hydrateModal } from 'vanila-components/client';
+import { hydrateModal } from 'vanilla-ssr/client';
 hydrateModal(document.getElementById('product-modal'));
 </script>
 ```
@@ -134,7 +134,7 @@ hydrateModal(document.getElementById('product-modal'));
 import {
   renderModalMarkup,
   getVanilaStyleText,
-} from "vanila-components/server";
+} from "vanilla-ssr/server";
 
 app.get("/page", (req, res) => {
   const modalHtml = renderModalMarkup({
@@ -163,7 +163,7 @@ app.get("/page", (req, res) => {
 
 ```javascript
 // client.js
-import { hydrateAllVanilaComponents } from "vanila-components/client";
+import { hydrateAllVanilaComponents } from "vanilla-ssr/client";
 
 // Hydrate all components on page load
 document.addEventListener("DOMContentLoaded", () => {
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ```javascript
 // For SPA route changes
-import { hydrateVanilaComponents } from "vanila-components/client";
+import { hydrateVanilaComponents } from "vanilla-ssr/client";
 
 // After route change
 function onRouteChange(newContent) {
@@ -201,28 +201,28 @@ function onRouteChange(newContent) {
 
 ```javascript
 //  Good - Only imports modal code (~3KB)
-import { hydrateModal } from "vanila-components/components/modal";
+import { hydrateModal } from "vanilla-ssr/components/modal";
 
 //  Avoid - Imports entire library (~50KB)
-import { hydrateModal } from "vanila-components";
+import { hydrateModal } from "vanilla-ssr";
 ```
 
 #### Bundle Size Badges
 
-- Core library: ![Core Size](https://img.shields.io/bundlephobia/minzip/vanila-components)
-- Modal component: ![Modal Size](https://img.shields.io/bundlephobia/minzip/vanila-components/modal)
-- Data Table: ![Table Size](https://img.shields.io/bundlephobia/minzip/vanila-components/data-table)
+- Core library: ![Core Size](https://img.shields.io/bundlephobia/minzip/vanilla-ssr)
+- Modal component: ![Modal Size](https://img.shields.io/bundlephobia/minzip/vanilla-ssr/modal)
+- Data Table: ![Table Size](https://img.shields.io/bundlephobia/minzip/vanilla-ssr/data-table)
 
 ### Lazy Hydration
 
 ```javascript
-import { hydrateOnVisible } from "vanila-components/client";
+import { hydrateOnVisible } from "vanilla-ssr/client";
 
 // Hydrate components when they become visible
 hydrateOnVisible(
   "[data-vanila-component='data-table']",
   (element) => {
-    import("vanila-components/components/data-table").then(({ hydrateDataTable }) => {
+    import("vanilla-ssr/components/data-table").then(({ hydrateDataTable }) => {
       hydrateDataTable(element);
     });
   },
@@ -239,7 +239,7 @@ hydrateOnVisible(
 ### Basic Theme Setup
 
 ```javascript
-import { applyThemeMode, generateThemeScript } from "vanila-components/theme";
+import { applyThemeMode, generateThemeScript } from "vanilla-ssr/theme";
 
 // Apply dark mode
 applyThemeMode("dark");
@@ -272,7 +272,7 @@ document.getElementById("theme-toggle").addEventListener("click", () => {
 ### Custom Theme Tokens
 
 ```javascript
-import { applyThemeMode } from "vanila-components/theme";
+import { applyThemeMode } from "vanilla-ssr/theme";
 
 applyThemeMode("dark", {
   customTokens: {

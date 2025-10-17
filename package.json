@@ -1,21 +1,21 @@
 {
-  "name": "vanila-components",
-  "version": "0.3.5",
+  "name": "vanilla-ssr",
+  "version": "0.3.7",
   "description": "SSR-first admin UI toolkit for vanilla JavaScript with server-rendered markup and client hydration.",
   "files": [
     "dist"
   ],
-  "main": "dist/vanila-components.cjs",
-  "module": "dist/vanila-components.js",
-  "esnext": "dist/vanila-components.js",
-  "unpkg": "dist/vanila-components.umd.js",
+  "main": "dist/vanilla-ssr.cjs",
+  "module": "dist/vanilla-ssr.js",
+  "esnext": "dist/vanilla-ssr.js",
+  "unpkg": "dist/vanilla-ssr.umd.js",
   "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/vanila-components.js",
-      "require": "./dist/vanila-components.cjs",
-      "default": "./dist/vanila-components.js"
+      "import": "./dist/vanilla-ssr.js",
+      "require": "./dist/vanilla-ssr.cjs",
+      "default": "./dist/vanilla-ssr.js"
     },
     "./client": {
       "types": "./dist/types/client.d.ts",
@@ -84,16 +84,16 @@
       "require": "./dist/security.cjs",
       "default": "./dist/security.js"
     },
-    "./styles.css": "./dist/vanila-components.css"
+    "./styles.css": "./dist/vanilla-ssr.css"
   },
   "sideEffects": [
-    "./dist/vanila-components.css"
+    "./dist/vanilla-ssr.css"
   ],
   "browser": {
-    "./dist/vanila-components.cjs": "./dist/vanila-components.js"
+    "./dist/vanilla-ssr.cjs": "./dist/vanilla-ssr.js"
   },
   "react-native": {
-    "./dist/vanila-components.cjs": "./dist/vanila-components.js"
+    "./dist/vanilla-ssr.cjs": "./dist/vanilla-ssr.js"
   },
   "scripts": {
     "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
@@ -112,6 +112,10 @@
     "hydration",
     "vanilla-js",
     "vanilla-javascript",
+    "vanilla components",
+    "vanilla ui",
+    "vanilla js components",
+    "vanilla js ui",
     "ui-toolkit",
     "ui-components",
     "component-library",

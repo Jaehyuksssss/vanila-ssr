@@ -15,14 +15,14 @@ export default function CSSTestPage() {
   return (
     <>
       <Head>
-        <title>Vanila Components CSS 테스트</title>
-        <meta name="description" content="vanila-components CSS 로드 테스트" />
+        <title>Vanilla SSR CSS 테스트</title>
+        <meta name="description" content="vanilla-ssr CSS 로드 테스트" />
       </Head>
 
       <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
-        <h1>🧪 Vanila Components CSS 테스트</h1>
+        <h1> Vanilla SSR CSS 테스트</h1>
         <p>
-          이 페이지는 vanila-components의 CSS가 제대로 로드되는지 테스트합니다.
+          이 페이지는 vanilla-ssr의 CSS가 제대로 로드되는지 테스트합니다.
         </p>
 
         {/* CSS 로드 상태 확인 */}
@@ -200,7 +200,7 @@ function runCSSTest() {
     // CSS 파일 로드 확인
     const stylesheets = Array.from(document.styleSheets);
     const vanilaCSS = stylesheets.find(
-      (sheet) => sheet.href && sheet.href.includes("vanila-components")
+      (sheet) => sheet.href && sheet.href.includes("vanilla-ssr")
     );
 
     // CSS 변수 확인
