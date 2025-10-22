@@ -1,4 +1,5 @@
 import styles from "./vanila.css?inline";
+import { getConfig } from "../config";
 
 type StyleHost = Document | ShadowRoot;
 
@@ -15,7 +16,8 @@ export const injectVanilaStyles = (target?: StyleHost): void => {
     return;
   }
 
-  const resolvedTarget: StyleHost = target ?? document;
+  const globalTarget = getConfig().styleTarget;
+  const resolvedTarget: StyleHost = target ?? globalTarget ?? document;
 
   if (injectedTargets.has(resolvedTarget)) {
     return;
@@ -29,6 +31,16 @@ export const injectVanilaStyles = (target?: StyleHost): void => {
   const styleElement = doc.createElement("style");
   styleElement.setAttribute("data-vanila-components", "");
   styleElement.textContent = styles;
+
+  const nonce = getConfig().csp?.nonce;
+  if (nonce) {
+    // Set CSP nonce if configured
+    try {
+      (styleElement as any).nonce = nonce;
+    } catch {
+      // no-op if browser blocks setting nonce programmatically
+    }
+  }
 
   container.appendChild(styleElement);
   injectedTargets.add(resolvedTarget);

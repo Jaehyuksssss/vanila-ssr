@@ -78,6 +78,8 @@ export interface EnsureHostElementOptions {
   fallback?: () => HTMLElement | null;
 }
 
+import { getConfig } from "../config";
+
 export const ensureHostElement = ({ componentName, target, fallback }: EnsureHostElementOptions): HTMLElement => {
   const resolved = resolveTargetElement(target ?? null);
   if (resolved) {
@@ -89,6 +91,13 @@ export const ensureHostElement = ({ componentName, target, fallback }: EnsureHos
     throw new Error(
       `[vanila-components] Unable to mount ${componentName}. Ensure that "${targetDescription}" exists in the DOM or pass a resolved HTMLElement.`,
     );
+  }
+
+  // Try global default target from config if provided
+  const globalTarget = getConfig().defaultTarget ?? null;
+  const resolvedGlobal = resolveTargetElement(globalTarget);
+  if (resolvedGlobal) {
+    return resolvedGlobal;
   }
 
   const fallbackElement = fallback?.() ?? null;

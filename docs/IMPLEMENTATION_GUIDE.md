@@ -163,7 +163,7 @@ app.get("/page", (req, res) => {
 
 ```javascript
 // client.js
-import { hydrateAllVanilaComponents } from "vanilla-ssr/client";
+import { hydrateAllVanilaComponents, hydrateOnVisible, hydrateOnInteraction, hydrateOnIdle } from "vanilla-ssr/client";
 
 // Hydrate all components on page load
 document.addEventListener("DOMContentLoaded", () => {
@@ -171,6 +171,23 @@ document.addEventListener("DOMContentLoaded", () => {
     injectStyles: false, // Already injected server-side
     debug: process.env.NODE_ENV === "development",
   });
+
+  // Conditional hydration examples
+  hydrateOnVisible("[data-vanila-component='data-table']", (el) => {
+    import("vanilla-ssr/components/data-table").then(({ hydrateDataTable }) => {
+      hydrateDataTable(el);
+    });
+  }, { rootMargin: "100px" });
+
+  hydrateOnInteraction("[data-vanila-component='modal']", (el) => {
+    import("vanilla-ssr/components/modal").then(({ hydrateModal }) => {
+      hydrateModal(el);
+    });
+  });
+
+  hydrateOnIdle(() => {
+    // Low-priority work
+  }, { timeout: 1500 });
 });
 ```
 
@@ -267,6 +284,18 @@ document.getElementById("theme-toggle").addEventListener("click", () => {
     // Apply theme tokens immediately...
   })();
 </script>
+```
+
+### Global Configuration (Target/Styles/CSP)
+
+```ts
+import { configure } from "vanilla-ssr";
+
+configure({
+  defaultTarget: "#modal-root",
+  styleTarget: document,
+  csp: { nonce: (window as any).__CSP_NONCE__ },
+});
 ```
 
 ### Custom Theme Tokens

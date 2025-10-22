@@ -34,7 +34,37 @@ export default function RootLayout({ children }) {
 }
 ```
 
-### 2. 컴포넌트 사용
+### 2. 전역 설정(CSP/스타일/디버그)
+
+App Router(`app/`)의 레이아웃 or Pages Router의 `_app`에서 전역 설정을 한 번 적용합니다.
+
+```tsx
+// app/layout.tsx (App Router)
+import "vanilla-ssr/styles.css";
+import { configure } from "vanilla-ssr";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // 예: middleware/route handler 등에서 nonce를 주입했다고 가정
+  const nonce = (globalThis as any).__CSP_NONCE__;
+  configure({
+    defaultTarget: "#modal-root",
+    styleTarget: typeof document !== "undefined" ? document : undefined,
+    csp: { nonce },
+    debug: process.env.NODE_ENV === "development",
+  });
+
+  return (
+    <html lang="ko">
+      <body>
+        <div id="modal-root" />
+        {children}
+      </body>
+    </html>
+  );
+}
+```
+
+### 3. 컴포넌트 사용
 
 **서버 사이드 렌더링**:
 
@@ -72,13 +102,32 @@ export default function HomePage() {
 
 ```javascript
 import { useEffect } from "react";
-import { hydrateVanilaComponents } from "vanilla-ssr/client";
+import { hydrateVanilaComponents, hydrateOnVisible, hydrateOnInteraction, hydrateOnIdle } from "vanilla-ssr/client";
 import { renderBadge } from "vanilla-ssr";
 
 export default function InteractivePage() {
   useEffect(() => {
     // SSR로 렌더된 컴포넌트 일괄 하이드레이션
     hydrateVanilaComponents();
+
+    // 가시 영역에서만 하이드레이트
+    hydrateOnVisible("[data-vanila-component='data-table']", (el) => {
+      import("vanilla-ssr/components/data-table").then(({ hydrateDataTable }) => {
+        hydrateDataTable(el as HTMLDivElement);
+      });
+    });
+
+    // 첫 인터랙션 시 하이드레이트
+    hydrateOnInteraction("[data-vanila-component='modal']", (el) => {
+      import("vanilla-ssr/components/modal").then(({ hydrateModal }) => {
+        hydrateModal(el as HTMLDivElement);
+      });
+    });
+
+    // 아이들 시간에 저우선순위 컴포넌트 준비
+    hydrateOnIdle(() => {
+      // pre-hydrate or prefetch
+    });
 
     // 배지 생성 (문자열 렌더 → DOM 삽입)
     const badgeHtml = renderBadge({

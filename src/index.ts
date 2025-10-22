@@ -250,3 +250,7 @@ export {
   toggleTheme,
 } from "./lib/theme";
 export type { ThemeMode, ThemeTokens, ThemeConfig } from "./lib/theme";
+
+// Global configuration (SSR + Client)
+export { configure, getConfig } from "./lib/config";
+export type { VanillaSSRConfig } from "./lib/config";

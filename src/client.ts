@@ -75,6 +75,8 @@ export {
   hydrateVanilaComponents,
   hydrateAllVanilaComponents,
   hydrateOnVisible,
+  hydrateOnInteraction,
+  hydrateOnIdle,
 } from "./lib/hydration";
 
 // Style injection (browser-only)
@@ -105,6 +107,9 @@ export {
   aria,
 } from "./lib/utils/accessibility";
 export type { FocusTrapOptions } from "./lib/utils/accessibility";
+
+// Global configuration
+export { configure, getConfig } from "./lib/config";
 
 // Types
 export type * from "./index";

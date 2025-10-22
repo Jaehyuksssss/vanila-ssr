@@ -13,6 +13,7 @@ import { hydrateToast } from "./components/toast";
 import { hydratePagination } from "./components/pagination";
 import { hydrateFileUploader } from "./components/file-uploader";
 import { injectVanilaStyles } from "./styles/injectStyles";
+import { getConfig } from "./config";
 import { isBrowser } from "./utils/dom";
 
 export interface HydrationOptions {
@@ -211,10 +212,12 @@ export const hydrateAllVanilaComponents = ({
   debug = false,
 }: HydrateAllVanilaOptions = {}): void => {
   if (injectStyles) {
-    injectVanilaStyles(styleTarget);
+    const globalTarget = getConfig().styleTarget;
+    injectVanilaStyles(styleTarget ?? globalTarget);
   }
 
-  hydrateVanilaComponents({ root, skipHydrated, debug });
+  const globalDebug = getConfig().debug ?? false;
+  hydrateVanilaComponents({ root, skipHydrated, debug: debug || globalDebug });
 };
 
 /**
@@ -247,4 +250,50 @@ export const hydrateOnVisible = (
   document.querySelectorAll(selector).forEach((element) => {
     observer.observe(element);
   });
+};
+
+/**
+ * Hydrate on first interaction with the element(s).
+ */
+export const hydrateOnInteraction = (
+  selector: string,
+  hydrateFn: (element: Element) => void,
+  options: { events?: string[]; capture?: boolean } = {}
+): void => {
+  if (!isBrowser) {
+    return;
+  }
+
+  const events = options.events ?? ["click", "focusin", "keydown"];
+
+  const attach = (el: Element) => {
+    const once = { once: true, capture: options.capture ?? false } as AddEventListenerOptions;
+    const handler = () => hydrateFn(el);
+    events.forEach((evt) => el.addEventListener(evt, handler, once));
+  };
+
+  document.querySelectorAll(selector).forEach(attach);
+};
+
+/**
+ * Hydrate when browser is idle (or after a fallback timeout)
+ */
+export const hydrateOnIdle = (
+  fn: () => void,
+  options: { timeout?: number } = {}
+): void => {
+  if (!isBrowser) {
+    return;
+  }
+
+  const timeout = options.timeout ?? 1000;
+
+  // @ts-ignore - requestIdleCallback may not exist in all TS libs
+  const ric: typeof window.requestIdleCallback | undefined = (window as any).requestIdleCallback;
+
+  if (typeof ric === "function") {
+    ric(fn, { timeout });
+  } else {
+    setTimeout(fn, timeout);
+  }
 };

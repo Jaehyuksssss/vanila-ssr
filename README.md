@@ -14,9 +14,11 @@ If you find this useful, please consider starring the repository to support the 
 
 👉 [Star on GitHub](https://github.com/jaehyuksssss/vanila-components)
 
+English | [한국어](README.ko.md)
+
 **📚 [Documentation & Playground](https://docs-vanilla-ssr.vercel.app/)** | **📦 [npm Package](https://www.npmjs.com/package/vanilla-ssr)**
 
-> 패키지명이 `vanila-components`에서 `vanilla-ssr`로 변경되었습니다. 기존 프로젝트는 임포트 경로만 바꾸면 동작합니다. 자세한 내용은 `MIGRATION.md`를 참고하세요.
+> The package was renamed from `vanila-components` to `vanilla-ssr`. Most users only need to update import paths. See `MIGRATION.md`.
 
 ## Highlights
 
@@ -62,6 +64,54 @@ showToast({
 ```
 
 `hydrateAllVanilaComponents()` accepts the same `root` selector as `hydrateVanilaComponents()` and adds `injectStyles`, `styleTarget` flags if you need to control where the CSS string is mounted.
+
+### Lazy/Conditional Hydration
+
+```ts
+import {
+  hydrateOnVisible,
+  hydrateOnInteraction,
+  hydrateOnIdle,
+} from "vanilla-ssr/client";
+
+// When visible (IntersectionObserver)
+hydrateOnVisible("[data-vanila-component='data-table']", (el) => {
+  import("vanilla-ssr/components/data-table").then(({ hydrateDataTable }) => {
+    hydrateDataTable(el as HTMLDivElement);
+  });
+});
+
+// On first interaction (click/focus/keydown)
+hydrateOnInteraction("[data-vanila-component='modal']", (el) => {
+  import("vanilla-ssr/components/modal").then(({ hydrateModal }) => {
+    hydrateModal(el as HTMLDivElement);
+  });
+});
+
+// When the browser is idle (fallback timeout 1s)
+hydrateOnIdle(() => {
+  // pre-hydrate low-priority widgets
+});
+```
+
+### Global Configuration (target, styles, CSP nonce)
+
+```ts
+import { configure, hydrateAllVanilaComponents } from "vanilla-ssr";
+
+configure({
+  // default container for overlays (modal/toast/bottom sheet)
+  defaultTarget: "#modal-root",
+  // where to inject the CSS when using hydrateAll*
+  styleTarget: document,
+  // add CSP nonce to injected <style>
+  csp: { nonce: (window as any).__CSP_NONCE__ },
+  // enable hydration debug logs
+  debug: process.env.NODE_ENV === "development",
+});
+
+hydrateAllVanilaComponents();
+```
 
 ### How it fits into your stack
 
@@ -319,10 +369,10 @@ document.body.append(pagination);
 import { createBanner } from "vanilla-ssr";
 
 const banner = createBanner({
-  message: "새로운 버전이 배포되었습니다.",
+  message: "A new version has been released.",
   variant: "success",
   dismissible: true,
-  actions: [{ label: "변경 사항 보기", href: "/changelog" }],
+  actions: [{ label: "View changelog", href: "/changelog" }],
   onAction: (action) => console.log(action.label, "clicked"),
 });
 
@@ -336,7 +386,7 @@ import { createFileUploader } from "vanilla-ssr";
 
 const uploader = createFileUploader({
   name: "attachments",
-  label: "첨부 파일",
+  label: "Attachments",
   multiple: true,
   maxFiles: 5,
   onFilesChange: (files) => console.log(files.length, "file(s) selected"),
@@ -581,6 +631,11 @@ applyTheme(darkTheme, shadowRoot);
 2. Modify components under `src/lib`, update demos in `src/demo`
 3. `npm run build` to produce publishable output
 4. `npm run test:run` to make sure behaviour and hydration flows are intact
+
+## Roadmap & Adoption
+
+- See ROADMAP.md for priorities focused on DX, performance, and documentation that drive real-world adoption.
+- Contributions welcome — bugs/docs/examples/starter templates via Issues/PRs.
 
 ## License
 

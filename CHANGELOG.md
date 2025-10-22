@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2025-10-22
+
+### Added
+- DX: New lazy/conditional hydration utilities
+  - `hydrateOnInteraction(selector, fn, { events })` – Hydrate on first user action (click/focus/keydown by default)
+  - `hydrateOnIdle(fn, { timeout })` – Hydrate when the browser is idle (falls back to timeout)
+  - (Existing) `hydrateOnVisible(selector, fn, { rootMargin, threshold })` documented alongside
+- Global configuration API
+  - `configure({ defaultTarget, styleTarget, csp: { nonce }, debug })`
+  - `getConfig()` to read current config
+  - `defaultTarget`: default mount host for overlays (Modal/BottomSheet/Toast) if no explicit target
+  - `styleTarget`: where runtime CSS is injected when using `hydrateAllVanilaComponents()`
+  - `csp.nonce`: applies CSP nonce to the injected `<style>` element
+  - `debug`: enables hydration logs and mismatch warnings
+- Exports
+  - Main: `configure`, `getConfig`
+  - Client: `configure`, `getConfig`, `hydrateOnInteraction`, `hydrateOnIdle`
+
+### Changed
+- `ensureHostElement()` now consults global `defaultTarget` before falling back
+- `injectVanilaStyles()` respects global `styleTarget` and applies CSP `nonce` when configured
+- `hydrateAllVanilaComponents()` uses global `styleTarget` (unless explicitly provided) and merges `debug` with global setting
+- Documentation updates:
+  - README: Lazy/Conditional Hydration, Global Configuration sections
+  - NEXTJS_GUIDE: App Router `_layout` example with `configure`, CSP nonce wiring, conditional hydration examples
+  - docs/IMPLEMENTATION_GUIDE: SSR/CSR bridge updated with `hydrateOn*` usage and global config
+  - docs/ACCESSIBILITY_SECURITY: CSP nonce via `configure({ csp: { nonce } })`
+  - ROADMAP: Marked DX items as delivered (lazy hydration triggers, global config) and added planned items
+
+### Tests
+- Added coverage for new utilities and config integration:
+  - `hydrateOnInteraction` single-invocation behavior
+  - `hydrateOnIdle` timeout fallback
+  - Global `defaultTarget` used by `ensureHostElement`
+  - Global `styleTarget` used by `hydrateAllVanilaComponents`
+
+### Migration Notes
+- No breaking changes. All additions are opt-in. Existing apps continue to work unchanged.
+
 ## [0.3.5] - 2025-10-16
 
 ### Added

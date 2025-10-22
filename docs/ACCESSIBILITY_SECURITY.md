@@ -178,6 +178,14 @@ const cleanContent = sanitizeHtml(userInput, {
 </script>
 ```
 
+Alternatively, set a global nonce used for runtime CSS injection:
+
+```ts
+import { configure } from "vanilla-ssr";
+
+configure({ csp: { nonce: "abc123" } });
+```
+
 #### No Inline Scripts
 
 ```javascript
