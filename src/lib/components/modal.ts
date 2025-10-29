@@ -255,3 +255,41 @@ export const hydrateModal = (
   defineCloseProperty(wrapper, close);
   return wrapper as ModalElement;
 };
+
+// Promise-based confirm helper to reduce boilerplate in apps
+export interface ConfirmOptions {
+  title?: string;
+  message?: string;
+  confirmText?: string;
+  cancelText?: string;
+  target?: string | HTMLElement;
+}
+
+export const confirm = ({
+  title = "확인",
+  message = "이 작업을 진행하시겠습니까?",
+  confirmText = "확인",
+  cancelText = "취소",
+  target,
+}: ConfirmOptions = {}): Promise<boolean> => {
+  if (!isBrowser) {
+    throw new Error("confirm() can only be used in a browser environment.");
+  }
+
+  return new Promise<boolean>((resolve) => {
+    const modal = showModal({
+      title,
+      message,
+      primaryButtonText: confirmText,
+      secondaryButtonText: cancelText,
+      target,
+      onPrimaryAction: () => resolve(true),
+      onSecondaryAction: () => resolve(false),
+      onClose: () => resolve(false),
+    });
+
+    // Optional: allow programmatic cancel via Escape/backdrop handled in modal
+    // modal.close() is exposed via ModalElement if needed by caller
+    return modal;
+  });
+};

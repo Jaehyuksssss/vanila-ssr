@@ -121,6 +121,7 @@ export {
   hydrateModal,
   renderModalMarkup,
   showModal,
+  confirm,
 } from "./lib/components/modal";
 export type {
   ModalElement,
@@ -128,6 +129,7 @@ export type {
   ModalMarkupOptions,
   ModalOptions,
   ModalPresentationOptions,
+  ConfirmOptions,
 } from "./lib/components/modal";
 
 export {
@@ -238,6 +240,10 @@ export type {
   StatusDotOptions,
   StatusColor,
 } from "./lib/utilities";
+
+// Tooltip utility (attribute-based and programmatic attach)
+export { attachTooltip, hydrateTooltipsInRoot } from "./lib/components/tooltip";
+export type { TooltipOptions, TooltipPlacement } from "./lib/components/tooltip";
 
 // Theme System (v0.3.0)
 export {

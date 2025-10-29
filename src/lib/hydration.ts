@@ -14,6 +14,7 @@ import { hydratePagination } from "./components/pagination";
 import { hydrateFileUploader } from "./components/file-uploader";
 import { injectVanilaStyles } from "./styles/injectStyles";
 import { getConfig } from "./config";
+import { hydrateTooltipsInRoot } from "./components/tooltip";
 import { isBrowser } from "./utils/dom";
 
 export interface HydrationOptions {
@@ -202,6 +203,15 @@ export const hydrateVanilaComponents = ({
   scope.querySelectorAll<HTMLDivElement>(SELECTORS.fileUploader).forEach((element) => {
     safeHydrate(element, hydrateFileUploader, hydrateOptions);
   });
+
+  // Lightweight utility hydration: attribute-based tooltips
+  try {
+    hydrateTooltipsInRoot(scope);
+  } catch (e) {
+    if (debug) {
+      console.warn('[Vanila Components] Tooltip hydration skipped:', e);
+    }
+  }
 };
 
 export const hydrateAllVanilaComponents = ({

@@ -40,6 +40,7 @@ export {
   createSelectField,
 } from "./lib/components/select-field";
 export { hydrateModal, createModal, showModal } from "./lib/components/modal";
+export { confirm } from "./lib/components/modal";
 export { hydrateToast, createToast, showToast } from "./lib/components/toast";
 export {
   hydrateMetricCard,
@@ -113,3 +114,6 @@ export { configure, getConfig } from "./lib/config";
 
 // Types
 export type * from "./index";
+
+// Tooltip
+export { attachTooltip, hydrateTooltipsInRoot } from "./lib/components/tooltip";

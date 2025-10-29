@@ -190,6 +190,18 @@ showModal({
   onPrimaryAction: () => console.log("confirmed"),
   onSecondaryAction: () => console.log("cancelled"),
 });
+
+// Promise-based confirm helper (reduces boilerplate)
+import { confirm } from "vanilla-ssr";
+const accepted = await confirm({
+  title: "Delete confirmation",
+  message: "Are you sure?",
+  confirmText: "Delete",
+  cancelText: "Cancel",
+});
+if (accepted) {
+  // proceed with deletion
+}
 ```
 
 ### Toast
@@ -498,6 +510,19 @@ renderStatusDot({ label: "Online", color: "green", pulse: true });
 StatusPresets.online();
 StatusPresets.busy();
 StatusPresets.away();
+```
+
+### Tooltip
+
+```ts
+// Attribute-based hydration (works with SSR markup)
+// <button data-vanila-tooltip="More info" data-placement="top">?</button>
+import { hydrateAllVanilaComponents } from "vanilla-ssr";
+hydrateAllVanilaComponents();
+
+// Programmatic attach
+import { attachTooltip } from "vanilla-ssr";
+attachTooltip(document.getElementById("help")!, { content: "More info", placement: "right" });
 ```
 
 ### Table Helpers

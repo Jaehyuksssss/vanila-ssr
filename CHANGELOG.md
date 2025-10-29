@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.1] - 2025-10-29
+
+### Added
+- Tooltip utility for low-friction hints
+  - Attribute-based hydration: add `data-vanila-tooltip="..."` (optional `data-placement="top|bottom|left|right"`) to any element; `hydrateAllVanilaComponents()` wires it automatically
+  - Programmatic API: `attachTooltip(element, { content, placement, openDelay, closeDelay })`
+  - Accessible by default: `role="tooltip"`, `aria-describedby` linkage, viewport-aware positioning
+- Promise-based `confirm()` helper built on Modal
+  - `confirm({ title, message, confirmText, cancelText, target })` → `Promise<boolean>`
+  - Reduces repetitive modal boilerplate and common edge-case bugs
+
+### Tests
+- Added `tooltip.spec.ts` covering programmatic attach and attribute hydration
+- Added `confirm.spec.ts` verifying true/false resolution
+
+### Styling
+- Tooltip styling added to `vanila.css` using semantic tokens (popover, border, shadow)
+
 ## [0.4.0] - 2025-10-22
 
 ### Added

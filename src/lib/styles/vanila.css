@@ -219,6 +219,30 @@
   font-family: "Pretendard", sans-serif;
 }
 
+/* Tooltip */
+.vanila-tooltip {
+  position: fixed;
+  max-width: 280px;
+  background: hsl(var(--popover));
+  color: hsl(var(--popover-foreground));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.25;
+  padding: 6px 8px;
+  z-index: 10000;
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity .12s ease, transform .12s ease;
+}
+
+.vanila-tooltip[data-state="open"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .accordion-item {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
